@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Main\Admin;
+namespace App\Http\Controllers\Main\Item;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\Admin\AdminMaster;
+use App\Models\Item\ItemCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Responses\Web\Admin\Master\AdminResponse;
-use App\Http\Responses\Web\Admin\Master\GetRolesResponse;
-use App\Http\Responses\Web\Admin\Master\AdminSaveResponse;
-use App\Http\Responses\Web\Admin\Master\AdminUpdateResponse;
-use App\Http\Responses\Web\Admin\Master\AdminDeleteResponse;
-use App\Http\Responses\Web\Admin\Master\AdminDeleteBulkResponse;
+use App\Http\Responses\Web\Item\Category\ItemCategoryResponse;
+use App\Http\Responses\Web\Item\Category\ItemCategorySaveResponse;
+use App\Http\Responses\Web\Item\Category\ItemCategoryUpdateResponse;
+use App\Http\Responses\Web\Item\Category\ItemCategoryDeleteResponse;
+use App\Http\Responses\Web\Item\Category\ItemCategoryDeleteBulkResponse;
 
-class AdminController extends Controller
+class ItemCategoryController extends Controller
 {
     public function getData(Request $request)
     {
-        return new AdminResponse;
+        return new ItemCategoryResponse;
     }
 
     public function index(Request $request)
@@ -28,8 +27,8 @@ class AdminController extends Controller
         if (!$auth) {
             return $this->redirect();
         }
-        $data['title']  = 'Manage Admin';
-        return view('page.admin.master.view')->with($data);
+        $data['title']  = 'Kelola Kategori Barang';
+        return view('page.item.category.view')->with($data);
     }
 
     public function add()
@@ -38,40 +37,24 @@ class AdminController extends Controller
         if (!$auth) {
             return $this->redirect();
         }
-        $data['title'] = 'Add New Admin';
-        return view('page.admin.master.add')->with($data);
+        $data['title'] = 'Tambah Kategori Barang';
+        return view('page.item.category.add')->with($data);
     }
 
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'admin_name' => 'required',
-            'admin_title' => 'required',
-            'admin_description' => 'required|max:500',
-            'admin_email' => 'required|email|unique:admin_master,admin_email',
-            'admin_password' => 'required|min:6|max:20',
-            // 'role_id' => 'required|exists:admin_role,role_id',
-            'role_id' => 'required|numeric',
+            'category_name' => 'required|unique:item_category,category_name',
         ]);
+
         if($validator->fails()) {
             return response()->json([
                 'code' => 422,
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminSaveResponse();
-    }
 
-    public function detail($id, Request $request)
-    {
-        $auth = $this->authorize('other');
-        if (!$auth) {
-            return $this->redirect();
-        }
-
-        $data['data']  = AdminMaster::where('admin_id', $id)->first();
-        $data['title'] = 'Detail Data Admin';
-        return view('page.admin.master.detail')->with($data);
+        return new ItemCategorySaveResponse;
     }
 
     public function edit($id, Request $request)
@@ -81,22 +64,17 @@ class AdminController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = AdminMaster::where('admin_id', $id)->first();
-        $data['title'] = 'Edit Data Admin';
-        return view('page.admin.master.edit')->with($data);
+        $data['data']  = ItemCategory::where('category_id', $id)->first();
+        $data['title'] = 'Edit Data Kategori';
+        return view('page.item.category.edit')->with($data);
     }
 
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'admin_name' => 'required',
-            'admin_title' => 'required',
-            'admin_description' => 'required|max:500',
-            'admin_email' => 'required|email|unique:admin_master,admin_email',
-            'role_id' => 'required|numeric',
-            'admin_email' => [
-                'email','required', Rule::unique('admin_master', 'admin_email')->where(function ($query) use($request){
-                    return $query->where('admin_id', '!=', $request->admin_id);
+            'category_name' => [
+                'required', Rule::unique('item_category', 'category_name')->where(function ($query) use($request){
+                    return $query->where('category_id', '!=', $request->category_id);
                 })
             ],
         ]);
@@ -107,7 +85,8 @@ class AdminController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminUpdateResponse();
+
+        return new ItemCategoryUpdateResponse;
     }
 
     public function delete(Request $request)
@@ -119,7 +98,7 @@ class AdminController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'admin_id' => 'required',
+            'category_id' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -128,7 +107,8 @@ class AdminController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminDeleteResponse;
+
+        return new ItemCategoryDeleteResponse;
     }
 
     public function bulkDelete(Request $request)
@@ -140,7 +120,7 @@ class AdminController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'admin_id.*' => 'required',
+            'category_id.*' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -149,11 +129,7 @@ class AdminController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminDeleteBulkResponse;
-    }
-
-    public function getRoles(Request $request)
-    {
-        return new GetRolesResponse;
+        
+        return new ItemCategoryDeleteBulkResponse;
     }
 }

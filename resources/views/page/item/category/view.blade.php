@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('content')
 <div class="container-fluid">
-    <button type="button" name="button" class="btn btn-primary btn-sm" onclick="location.href='{{url('item-master/add')}}'">Tambahkan Data</button>
+    <button type="button" name="button" class="btn btn-primary btn-sm" onclick="location.href='{{url('item-category/add')}}'">Tambahkan Data</button>
     <button type="button" name="button" class="btn btn-danger btn-sm" id="bulkDelete" style="display:none" onclick="bulkDelete()">Hapus Data Terpilih</button>
 </div>
 <br>
@@ -33,9 +33,7 @@
                         <tr>
                             <th><input type="checkbox" onclick="selectAll()" id="checkbox-parent" class="checkbox-template"></th>
                             <th>#</th>
-                            <th>Nama Barang</th>
-                            <th>Kategori Barang</th>
-                            <th>Harga Sewa</th>
+                            <th>Nama Kategori Barang</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -44,9 +42,7 @@
                         <tr>
                             <th></th>
                             <th>#</th>
-                            <th>Nama Barang</th>
-                            <th>Kategori Barang</th>
-                            <th>Harga Sewa</th>
+                            <th>Nama Kategori Barang</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -59,7 +55,7 @@
 @endsection
 
 @section('js')
-<script src="{{url('js/page/general/item/item-master.js')}}" charset="utf-8"></script>
+<script src="{{url('js/page/general/item/item-category.js')}}" charset="utf-8"></script>
 <script type="text/javascript">
     this.getData();
 </script>

@@ -33,28 +33,28 @@ class ItemMasterController extends Controller
         if (!$auth) {
             return $this->redirect();
         }
-        $data['title'] = 'Add New Admin';
-        return view('page.admin.master.add')->with($data);
+        $data['title'] = 'Tambah Data Barang';
+        return view('page.item.master.add')->with($data);
     }
 
     public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'admin_name' => 'required',
-            'admin_title' => 'required',
-            'admin_description' => 'required|max:500',
-            'admin_email' => 'required|email|unique:admin_master,admin_email',
-            'admin_password' => 'required|min:6|max:20',
-            // 'role_id' => 'required|exists:admin_role,role_id',
-            'role_id' => 'required|numeric',
+            'item_name' => 'required',
+            'item_price' => 'required|numeric|min:1',
+            'item_description' => 'required|max:500',
+            'item_stock' => 'required',
+            'category_id' => 'required|exists:item_category,category_id',
         ]);
+
         if($validator->fails()) {
             return response()->json([
                 'code' => 422,
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminSaveResponse();
+
+        return new ItemSaveResponse;
     }
 
     public function detail($id, Request $request)
@@ -64,7 +64,7 @@ class ItemMasterController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = AdminMaster::where('admin_id', $id)->first();
+        $data['data']  = AdminMaster::where('item_id', $id)->first();
         $data['title'] = 'Detail Data Admin';
         return view('page.admin.master.detail')->with($data);
     }
@@ -76,7 +76,7 @@ class ItemMasterController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = AdminMaster::where('admin_id', $id)->first();
+        $data['data']  = AdminMaster::where('item_id', $id)->first();
         $data['title'] = 'Edit Data Admin';
         return view('page.admin.master.edit')->with($data);
     }
@@ -84,14 +84,14 @@ class ItemMasterController extends Controller
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'admin_name' => 'required',
-            'admin_title' => 'required',
-            'admin_description' => 'required|max:500',
-            'admin_email' => 'required|email|unique:admin_master,admin_email',
+            'item_name' => 'required',
+            'item_title' => 'required',
+            'item_description' => 'required|max:500',
+            'item_email' => 'required|email|unique:item_master,item_email',
             'role_id' => 'required|numeric',
-            'admin_email' => [
-                'email','required', Rule::unique('admin_master', 'admin_email')->where(function ($query) use($request){
-                    return $query->where('admin_id', '!=', $request->admin_id);
+            'item_email' => [
+                'email','required', Rule::unique('item_master', 'item_email')->where(function ($query) use($request){
+                    return $query->where('item_id', '!=', $request->item_id);
                 })
             ],
         ]);
@@ -114,7 +114,7 @@ class ItemMasterController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'admin_id' => 'required',
+            'item_id' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -135,7 +135,7 @@ class ItemMasterController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'admin_id.*' => 'required',
+            'item_id.*' => 'required',
         ]);
 
         if($validator->fails()) {

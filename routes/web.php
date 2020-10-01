@@ -113,6 +113,18 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->get('/delete', 'ItemMasterController@delete');
                 $router->post('/delete/many', 'ItemMasterController@bulkDelete');
             });
+
+            $router->group(['prefix' => '/item-category'], function () use ($router) {
+                $router->get('/data', 'ItemCategoryController@getData');
+                $router->get('/', 'ItemCategoryController@index');
+                $router->get('/add', 'ItemCategoryController@add');
+                $router->post('/save', 'ItemCategoryController@save');
+                $router->get('/detail/{id}', 'ItemCategoryController@detail');
+                $router->get('/edit/{id}', 'ItemCategoryController@edit');
+                $router->post('/update/{id}', 'ItemCategoryController@update');
+                $router->get('/delete', 'ItemCategoryController@delete');
+                $router->post('/delete/many', 'ItemCategoryController@bulkDelete');
+            });
         });
     });
 });
