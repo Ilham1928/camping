@@ -1,6 +1,6 @@
 var url = $('meta[name="__global_url"]').attr('content')
 
-function auth() {
+function login() {
     var params = {
             'email' : $('input[name=email]').val(),
             'password'  : $('input[name=password]').val()
@@ -32,4 +32,18 @@ function auth() {
             $('.error-message').css('display', 'block')
         }
     })
+}
+
+function register() {
+
+}
+
+function getFormRegister() {
+    $('#register-div').css('display', 'block')
+    $('#login-div').css('display', 'none')
+}
+
+function getFormLogin() {
+    $('#register-div').css('display', 'none')
+    $('#login-div').css('display', 'block')
 }

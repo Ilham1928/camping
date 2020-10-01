@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Responses\Web\Auth\LoginResponse;
+use App\Http\Responses\Web\Auth\RegisterResponse;
 
 class AuthController extends Controller
 {
@@ -22,13 +23,33 @@ class AuthController extends Controller
             'email' => 'required|email|exists:admin_master,admin_email',
             'password' => 'required',
         ]);
+
         if($validator->fails()) {
             return response()->json([
                 'code' => 422,
                 'message' => $validator->errors()->first(),
             ], 200);
         }
+
         return new LoginResponse;
+    }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fullname' => 'required|min:3',
+            'email' => 'required|email|exists:admin_master,admin_email',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'message' => $validator->errors()->first(),
+            ], 200);
+        }
+
+        return new RegiserResponse;
     }
 
     public function logout()

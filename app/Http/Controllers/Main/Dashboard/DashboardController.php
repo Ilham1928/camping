@@ -11,10 +11,10 @@ class DashboardController extends Controller
     {
         if ($request->session()->get('user_type') == 'user') {
             $data['title'] = 'List Alat Camping';
-            return view('page.dashboard.view', $data);
+            return view('page.dashboard.user.view', $data);
         }else{
             $data['title'] = 'Dashboard Analytic';
-            return view('page.dashboard.view', $data);
+            return view('page.dashboard.admin.view', $data);
         }
     }
 }

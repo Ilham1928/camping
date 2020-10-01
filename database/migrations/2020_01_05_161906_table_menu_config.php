@@ -22,7 +22,7 @@ class TableMenuConfig extends Migration
             });
 
             DB::table('cms_config')->insert([
-                'cms_config_brand'  => 'News',
+                'cms_config_brand'  => 'Spader Outdor Gear',
                 'cms_config_skin'   => 'default',
             ]);
         }
