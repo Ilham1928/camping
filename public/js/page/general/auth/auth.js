@@ -54,6 +54,7 @@ function signup() {
                 $('#login-div').css('display', 'block')
                 $('.error-message').css('display', 'block')
                 $('.error-message').empty().append('Berhasil Daftar! silahkan login.')
+                $('#signup-form').trigger('reset')
                 $('#register').html('Register')
             }else{
                 $('#register').html('Register')

@@ -85,6 +85,7 @@ class LoginResponse extends Controller implements Responsable
                 'admin_name' => $request->fullname,
                 'admin_title' => 'Pelanggan',
                 'admin_photo' => $request->photo,
+                'admin_role' => $request->role_id,
                 'admin_token' => $token
             ]);
         }else{
@@ -94,6 +95,7 @@ class LoginResponse extends Controller implements Responsable
                 'admin_name' => $request->admin_name,
                 'admin_title' => $request->admin_title,
                 'admin_photo' => $request->admin_photo,
+                'admin_role' => $request->role_id,
                 'admin_token' => $token
             ]);
         }

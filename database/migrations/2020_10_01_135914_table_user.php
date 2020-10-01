@@ -23,6 +23,7 @@ class TableUser extends Migration
                 $table->string('photo', 100);
                 $table->integer('id_card');
                 $table->text('token');
+                $table->integer('role_id');
                 $table->enum('status', ['1', '0']);
                 $table->timestamps();
             });

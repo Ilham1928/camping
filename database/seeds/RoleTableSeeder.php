@@ -12,11 +12,22 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admin_role')->insert([
-            'role_name'        => 'Super Admin',
-            'role_description' => 'Access All Module',
-            'status'           => '1'
-        ]);
+        $role = [
+            [
+                'role_name'        => 'User',
+                'role_description' => 'Pelanggan',
+                'status'           => '1',
+                'role_id'          => 1000
+            ],
+            [
+                'role_name'        => 'Super Admin',
+                'role_description' => 'Access All Module',
+                'status'           => '1',
+                'role_id'          => 1
+            ],
+        ];
+
+        DB::table('admin_role')->insert($role);
 
         $param = [
             [

@@ -18,22 +18,35 @@
                 Dashboard
             </a>
         </li>
-        @foreach($menu as $parentMenu => $index)
-            @if(!empty($index['child']))
-                <li class="">
-                    <a href="#dropdown{{ $parentMenu }}" aria-expanded="" data-toggle="collapse">
-                        <i class="demo-icon">{!! $index['icon']['menu_icon_unicode'] !!} </i>{{ $index['menu_parent_name'] }}
-                    </a>
-                    <ul id="dropdown{{ $parentMenu }}" class="collapse list-unstyled ">
-                        @foreach($index['child'] as $child)
-                            @if($child['status'] == 1)
-                                @php $activeList = (strpos($_SERVER['REQUEST_URI'], $child['menu_child_url']) == true) ? 'active' : ''; @endphp
-                                <li class=""><a href="{{ url($child['menu_child_url']) }}">{{ $child['menu_child_name'] }}</a></li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </li>
-            @endif
-        @endforeach
+        @if(Session::get('admin_role') != 1000)
+            @foreach($menu as $parentMenu => $index)
+                @if(!empty($index['child']))
+                    <li class="">
+                        <a href="#dropdown{{ $parentMenu }}" aria-expanded="" data-toggle="collapse">
+
+                            <i class="demo-icon">{!! $index['icon']['menu_icon_unicode'] !!} </i>{{ $index['menu_parent_name'] }}
+                        </a>
+                        <ul id="dropdown{{ $parentMenu }}" class="collapse list-unstyled ">
+                            @foreach($index['child'] as $child)
+                                @if($child['status'] == 1)
+                                    @php $activeList = (strpos($_SERVER['REQUEST_URI'], $child['menu_child_url']) == true) ? 'active' : ''; @endphp
+                                    <li class=""><a href="{{ url($child['menu_child_url']) }}">{{ $child['menu_child_name'] }}</a></li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
+            @endforeach
+        @else
+            <li class="">
+                <a href="#dropdown" aria-expanded="" data-toggle="collapse">
+                    <i class="demo-icon">&#xe8ba;</i>Pesanan Saya
+                </a>
+                <ul id="dropdown" class="collapse list-unstyled ">
+                    <li class=""><a href="{{ url('order-future') }}">Pesanan Akan Datang</a></li>
+                    <li class=""><a href="{{ url('order-past') }}">Pesanan Berlalu</a></li>
+                </ul>
+            </li>
+        @endif
     </ul>
 </nav>

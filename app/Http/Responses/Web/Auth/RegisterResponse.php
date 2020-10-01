@@ -37,7 +37,8 @@ class RegisterResponse extends Controller implements Responsable
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'id_card' => $request->id_card,
-            'address' => $request->address
+            'address' => $request->address,
+            'role_id' => 1000
         ]);
     }
 }
