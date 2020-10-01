@@ -5,6 +5,7 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
     $router->group(['prefix' => '/'], function () use ($router) {
         $router->get('/', 'Auth\AuthController@index');
         $router->post('/login', 'Auth\AuthController@login');
+        $router->post('/register', 'Auth\AuthController@register');
         $router->get('/logout', 'Auth\AuthController@logout');
     });
 
@@ -87,9 +88,9 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/delete/many', 'RoleController@bulkDelete');
 
                 // the permission
-                $router->get('/get-permission', 'Admin\PermissionController@getData');
-                $router->get('/permission/{id}', 'Admin\PermissionController@index');
-                $router->get('/permission/{id}/save', 'Admin\PermissionController@save');
+                $router->get('/get-permission', 'PermissionController@getData');
+                $router->get('/permission/{id}', 'PermissionController@index');
+                $router->get('/permission/{id}/save', 'PermissionController@save');
             });
 
             $router->group(['prefix' => '/admin-activity'], function () use ($router) {

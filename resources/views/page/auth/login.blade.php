@@ -29,10 +29,10 @@
                                             <label for="login-username" class="label-material">Email</label>
                                         </div>
                                         <div class="form-group">
-                                            <input id="login-password" onchange="login()" type="password" name="password" required data-msg="Please enter your password" class="input-material">
+                                            <input id="login-password" onchange="signin()" type="password" name="password" required data-msg="Please enter your password" class="input-material">
                                             <label for="login-password" class="label-material">Password</label>
                                         </div>
-                                        <button id="login" type="button" onclick="login()" class="btn btn-primary" name="button">Login</button>
+                                        <button id="login" type="button" onclick="signin()" class="btn btn-primary" name="button">Login</button>
                                         <div class="form-group">
                                             <p>Tidak punya akun? <a href="#" onclick="getFormRegister()">Daftar disini</a></p>
                                         </div>
@@ -44,28 +44,32 @@
                             <div class="form d-flex align-items-center">
                                 <div class="content">
                                     <p class="error-message" style="width:100% !important; margin-left:0px !important;"></p>
-                                    <form>
+                                    <form id="signup-form">
                                         <div class="form-group">
-                                            <input type="text" autocomplete="off" name="email" required class="input-material">
-                                            <label for="login-username" class="label-material">Nama Lengkap</label>
+                                            <input type="text" name="fullname" required class="input-material">
+                                            <label class="label-material">Nama Lengkap</label>
                                         </div>
                                         <div class="form-group">
                                             <input type="number" name="id_card" required class="input-material">
-                                            <label for="login-username" class="label-material">No. Kartu identitas</label>
+                                            <label class="label-material">No. Kartu identitas</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" autocomplete="off" name="email" required class="input-material">
+                                            <label class="label-material">Email</label>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" required class="input-material">
-                                            <label for="login-password" class="label-material">Password</label>
+                                            <label class="label-material">Password</label>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password_confirmation" required class="input-material">
-                                            <label for="login-password-confirmation" class="label-material">Konfirmasi Password</label>
+                                            <label class="label-material">Konfirmasi Password</label>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="address" required class="input-material">
-                                            <label for="login-address" class="label-material">Alamat</label>
+                                            <input type="text" name="address" onchange="signup()" required class="input-material">
+                                            <label class="label-material">Alamat</label>
                                         </div>
-                                        <button id="register" type="button" onclick="register()" class="btn btn-primary" name="button">Register</button>
+                                        <button id="register" type="button" onclick="signup()" class="btn btn-primary" name="button">Register</button>
                                         <div class="form-group">
                                             <p>Memiliki akun? <a href="#" onclick="getFormLogin()">Masuk disini</a></p>
                                         </div>

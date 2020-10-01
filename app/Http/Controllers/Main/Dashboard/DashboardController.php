@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->session()->get('user_type') == 'user') {
+        if ($request->session()->get('type') == 'user') {
             $data['title'] = 'List Alat Camping';
             return view('page.dashboard.user.view', $data);
         }else{

@@ -1,6 +1,10 @@
 @extends('template.main')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/page/dashboard/dashboard-style.css') }}">
+@endsection
 @section('content')
  <div class="container">
+     <h3>{{ $title }}</h3>
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 		<div class="my-list">

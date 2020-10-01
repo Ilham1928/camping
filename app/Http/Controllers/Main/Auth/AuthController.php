@@ -20,7 +20,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:admin_master,admin_email',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -38,8 +38,11 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'fullname' => 'required|min:3',
-            'email' => 'required|email|exists:admin_master,admin_email',
+            'id_card' => 'required|numeric|digits:16|unique:user,id_card',
+            'email' => 'required|email|unique:user,id_card',
             'password' => 'required',
+            'password_confirmation' => 'required|same:password',
+            'address' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -49,7 +52,7 @@ class AuthController extends Controller
             ], 200);
         }
 
-        return new RegiserResponse;
+        return new RegisterResponse;
     }
 
     public function logout()
