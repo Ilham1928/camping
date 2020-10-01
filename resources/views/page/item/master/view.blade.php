@@ -1,8 +1,8 @@
 @extends('template.main')
 @section('content')
 <div class="container-fluid">
-    <button type="button" name="button" class="btn btn-primary btn-sm" onclick="location.href='{{url('news-master/add')}}'">Add New</button>
-    <button type="button" name="button" class="btn btn-danger btn-sm" id="bulkDelete" style="display:none" onclick="bulkDelete()">Bulk Delete</button>
+    <button type="button" name="button" class="btn btn-primary btn-sm" onclick="location.href='{{url('admin-master/add')}}'">Tambahkan Data</button>
+    <button type="button" name="button" class="btn btn-danger btn-sm" id="bulkDelete" style="display:none" onclick="bulkDelete()">Hapus Data Terpilih</button>
 </div>
 <br>
 <div class="col-lg-12">
@@ -17,7 +17,7 @@
                         <i class="fa fa-print"></i>Print
                     </a>
                     <a href="#" class="dropdown-item">
-                        <i class="fa fa-gear"></i>Edit
+                        <i class="fa fa-gear"></i>Ubah
                     </a>
                 </div>
             </div>
@@ -33,9 +33,9 @@
                         <tr>
                             <th><input type="checkbox" onclick="selectAll()" id="checkbox-parent" class="checkbox-template"></th>
                             <th>#</th>
-                            <th>News Title</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori Barang</th>
+                            <th>Harga Sewa</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,9 +44,9 @@
                         <tr>
                             <th></th>
                             <th>#</th>
-                            <th>News Title</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>Nama Barang</th>
+                            <th>Kategori Barang</th>
+                            <th>Harga Sewa</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -59,7 +59,7 @@
 @endsection
 
 @section('js')
-<script src="{{url('js/page/general/news/news.js')}}" charset="utf-8"></script>
+<script src="{{url('js/page/general/item/item-master.js')}}" charset="utf-8"></script>
 <script type="text/javascript">
     this.getData();
 </script>

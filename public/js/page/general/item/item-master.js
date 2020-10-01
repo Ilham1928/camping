@@ -1,4 +1,4 @@
-var url = $('meta[name="__global_url"]').attr('content')+'/news-master'
+var url = $('meta[name="__global_url"]').attr('content')+'/item-master'
 
 function getData(queryParam = false) {
     var query   = (queryParam) ? queryParam : '?page=1'
@@ -18,17 +18,17 @@ function getData(queryParam = false) {
                 $(res.data.data).each(function (index, item) {
                     $('#tableData tbody').append(
                         '<tr>'
-                            +'<td><input type="checkbox" name="check" onclick="selectData('+item.news_id+')" value="'+ item.news_id +'" class="checkbox-template"></td>'
+                            +'<td><input type="checkbox" name="check" onclick="selectData('+item.item_id+')" value="'+ item.item_id +'" class="checkbox-template"></td>'
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
-                            +'<td>' + item.news_title + '</td>'
-                            +'<td>' + item.created_by + '</td>'
-                            +'<td>' + item.created_at + '</td>'
+                            +'<td>' + item.item_name + '</td>'
+                            +'<td>' + item.category.category_name + '</td>'
+                            +'<td>' + item.item_price + '</td>'
                             +'<td>'
-                                +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.news_id+')">Detail</button>'
+                                +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.item_id+')">Detail</button>'
                                 +'&nbsp'
-                                +'<button type="button" name="button" class="btn btn-success btn-sm" onclick="edit('+item.news_id+')">Edit</button>'
+                                +'<button type="button" name="button" class="btn btn-success btn-sm" onclick="edit('+item.item_id+')">Edit</button>'
                                 +'&nbsp'
-                                +'<button type="button" name="button" class="btn btn-danger btn-sm" onclick="remove('+item.news_id+')">Delete</button>'
+                                +'<button type="button" name="button" class="btn btn-danger btn-sm" onclick="remove('+item.item_id+')">Delete</button>'
                             +'</td>'
                         +'</tr>'
                     )
@@ -52,11 +52,15 @@ function getData(queryParam = false) {
 
 function save(file = false) {
     var params = {
-        'news_title'    : $('input[name=news_title]').val(),
-        'news_content'  : $('textarea#content').val(),
-        'news_image'    : file
-    }
-    console.log(params);
+            'admin_name'        : $('input[name=admin_name]').val(),
+            'admin_title'       : $('input[name=admin_title]').val(),
+            'admin_description' : $('textarea#desc').val(),
+            'admin_email'       : $('input[name=admin_email]').val(),
+            'admin_password'    : $('input[name=admin_password]').val(),
+            'role_id'           : $('select[name=role_id] :selected').val(),
+            'admin_photo'       : (file) ? file : ''
+        }
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -91,10 +95,14 @@ function edit(id){
 function update(file = false) {
     var id =  $('input[name=queue]').val()
     var params = {
-            'news_id'       : id,
-            'news_title'    : $('input[name=news_title]').val(),
-            'news_content'  : $('textarea#content').val(),
-            'news_image'    : file
+            'admin_id'          : id,
+            'admin_name'        : $('input[name=admin_name]').val(),
+            'admin_title'       : $('input[name=admin_title]').val(),
+            'admin_description' : $('textarea#desc').val(),
+            'admin_email'       : $('input[name=admin_email]').val(),
+            'admin_password'    : $('input[name=admin_password]').val(),
+            'role_id'           : $('select[name=role_id] :selected').val(),
+            'admin_photo'       : (file) ? file : ''
         }
 
     $.ajax({
@@ -123,38 +131,17 @@ function update(file = false) {
 }
 
 function uploadFile(forUpdate=false) {
-    if ($("#photo").prop('files').length > 0) {
-        var filesAmount = $("#photo").prop('files').length;
-        for (var i = 0; i < filesAmount; i++) {
-            var reader = new FileReader();
-            reader.onload = function(reader) {
-
-                if (forUpdate) {
-                    update(reader.target.result)
-                }else{
-                    save(reader.target.result)
-                }
-
-                var element = '<div class="images" onclick="removeImage()">'
-                                +'<img src="'+reader.target.result+'" class="upload-preview" />'
-                                +'<i class="demo-icon remove-image">&#xe88d;</i>'
-                              +'</div>'
-
-                $(element).appendTo('.preview')
-
-                $('.images').css('display', 'block')
-                $('.dropzone-desc').css('display', 'none')
+    if ($("#photo").prop('files')[0] !== undefined) {
+        var reader = new FileReader();
+        reader.onload = function(reader){
+            if (forUpdate) {
+                $('#img-preview').attr('src', reader.target.result);
+                update(reader.target.result)
+            }else{
+                save(reader.target.result)
             }
-
-            reader.readAsDataURL($("#photo").prop('files')[0]);
         }
-    }
-}
-
-function removeImage() {
-    $('.images').remove()
-    if ($('.preview div').length < 1) {
-        $('.dropzone-desc').css('display', 'block')
+        reader.readAsDataURL($("#photo").prop('files')[0]);
     }
 }
 
@@ -163,7 +150,7 @@ function detail(id) {
 }
 
 function remove(id) {
-    var params = { 'news_id'  : id }
+    var params = { 'admin_id'  : id }
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -225,7 +212,7 @@ function bulkDelete(params) {
             type: 'POST',
             dataType: 'json',
             url: url+'/delete/many',
-            data: { "news_id" : params },
+            data: { "admin_id" : params },
             success: function(data, err, xhr){
                 if (data.code === 200) {
                     $(window).attr('location', url)

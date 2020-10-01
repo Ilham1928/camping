@@ -100,5 +100,19 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/delete/many', 'ActivityDeleteController@bulkDelete');
             });
         });
+
+        $router->group(['namespace' => 'Item'], function () use ($router) {
+            $router->group(['prefix' => '/item-master'], function () use ($router) {
+                $router->get('/data', 'ItemMasterController@getData');
+                $router->get('/', 'ItemMasterController@index');
+                $router->get('/add', 'ItemMasterController@add');
+                $router->post('/save', 'ItemMasterController@save');
+                $router->get('/detail/{id}', 'ItemMasterController@detail');
+                $router->get('/edit/{id}', 'ItemMasterController@edit');
+                $router->post('/update/{id}', 'ItemMasterController@update');
+                $router->get('/delete', 'ItemMasterController@delete');
+                $router->post('/delete/many', 'ItemMasterController@bulkDelete');
+            });
+        });
     });
 });
