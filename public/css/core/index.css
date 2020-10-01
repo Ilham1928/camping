@@ -1,0 +1,70 @@
+.center {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.error-message{
+    margin-left: 16rem;
+    font-size: 13px;
+    color: red;
+    padding: 14px;
+    text-align: center;
+    width: 60%;
+    background: wheat;
+    display: none;
+}
+
+.select-icon{
+    width: 100%;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    cursor: pointer;
+    font-size: 12px;
+    color: #777;
+}
+
+.select-icon:hover{
+    background: #afafaf;
+    width: 100%;
+}
+
+.result-select{
+    margin-left: 17%;
+    background: whitesmoke;
+    margin-top: 0.3rem;
+    height: auto;
+}
+
+.pagination{
+    /* display: inline-block; */
+    font-size: 14px;
+    float: right;
+    padding-right: 2em;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 7px 14px;
+  text-decoration: none;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+#preview{
+    margin-left: 12rem;
+    max-width: 35%;
+}
+
+.alert{
+    width: 20rem;
+    margin-left: 32rem;
+}
+
+.highlight {
+    background-color: yellow;
+    border-radius: .125em;
+}

@@ -1,0 +1,80 @@
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-left: 13em;
+  top: -2rem;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #cecece;
+  border-radius: 50%;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .default {
+  background-color: #796aee;
+}
+
+.container input:checked ~ .blue {
+    background-color: #3a90d9;
+}
+
+.container input:checked ~ .green {
+    background-color: #42b35a;
+}
+
+.container input:checked ~ .pink {
+    background-color: #ef5085;
+}
+
+.container input:checked ~ .red {
+    background-color: #f03e40;
+}
+
+.container input:checked ~ .sea {
+    background-color: #379392;
+}
+
+.container input:checked ~ .violet {
+    background-color: #796aee;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* .container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+} */
