@@ -89,3 +89,33 @@ function selectRole(id) {
         }
     })
 }
+
+function selectCategory(id) {
+    var url = $('meta[name="__global_url"]').attr('content')
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        dataType: 'json',
+        url: url+'/item-master/get-category',
+        success: function(res){
+            if (res.code === 200) {
+                $(res.data).each(function (index, item) {
+                    var selected = (item.category_id === id) ? 'selected' : ''
+                    var preview = '<option '+selected+' value="'+item.category_id+'">'+item.category_name+'</option>'
+                    $('#select').append(preview)
+                })
+            }else{
+                var preview = '<option value="">No Data</option>'
+                $('#select').empty().append(preview)
+            }
+        },
+        statusCode: {
+            500: function(err) {
+                $('.error-message').empty().append(err.responseJSON.message)
+                $('.error-message').css('display', 'block')
+            }
+        }
+    })
+}

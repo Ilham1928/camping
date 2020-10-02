@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Responses\Web\Item\Master\ItemResponse;
+use App\Http\Responses\Web\Item\Master\ItemSaveResponse;
+use App\Http\Responses\Web\Item\Master\GetCategoryResponse;
 
 class ItemMasterController extends Controller
 {
@@ -45,6 +47,7 @@ class ItemMasterController extends Controller
             'item_description' => 'required|max:500',
             'item_stock' => 'required',
             'category_id' => 'required|exists:item_category,category_id',
+            'item_image' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -147,8 +150,8 @@ class ItemMasterController extends Controller
         return new AdminDeleteBulkResponse;
     }
 
-    public function getRoles(Request $request)
+    public function getCategory(Request $request)
     {
-        return new GetRolesResponse;
+        return new GetCategoryResponse;
     }
 }

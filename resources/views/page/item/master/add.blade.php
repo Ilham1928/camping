@@ -38,15 +38,13 @@
                     </div>
                     <div class="row col-sm-12">
                         <label class="col-sm-2 form-control-label">Kategori Barang :</label>
-                        <select
-                        class="col-sm-8"
-                        id="select"
-                        name="category_id"
-                        data-blobselect-search="true"
-                        data-blobselect-order-type="string"
-                        data-blobselect-order="asc"
-                        data-blobselect-watch="1"
-                        >
+                        <select class="col-sm-8"
+                            id="select"
+                            name="category_id"
+                            data-blobselect-search="true"
+                            data-blobselect-order-type="string"
+                            data-blobselect-order="asc"
+                            data-blobselect-watch="1">
                             <option value="">---- Silakan Pilih ----</option>
                         </select>
                     </div>
@@ -54,10 +52,13 @@
                 <div class="row">
                     <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Gambar Barang :</label>
-                        <input type="file" name="admin_photo" class="input-material col-sm-6" onclick="uploadFile" id="photo" required>
+                        <input type="file" name="item_image" class="input-material col-sm-6" id="photo" required>
                         <button type="button" onclick="uploadFile()" class="btn btn-primary btn-sm col-sm-2" style="margin-top:2%">Unggah</button>
                     </div>
                 </div>
+                <span id="preview">
+                    <img id="img-preview" style="max-width:100%; display:none" alt="photo">
+                </span>
             </div>
             <hr>
             <div class="form-group-material row center">
@@ -74,13 +75,13 @@
 
 @section('js')
 <!-- page -->
-<script src="{{url('js/page/general/admin/admin.js')}}" charset="utf-8"></script>
+<script src="{{url('js/page/general/item/item-master.js')}}" charset="utf-8"></script>
 <script src="{{url('js/plugin/select.js')}}" charset="utf-8"></script>
 
 <!-- plugin -->
 <script src="{{url('js/plugin/blobselect.min.js')}}" charset="utf-8"></script>
 
 <script type="text/javascript">
-    this.selectRole()
+    this.selectCategory()
 </script>
 @endsection

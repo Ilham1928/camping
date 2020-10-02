@@ -52,15 +52,14 @@ function getData(queryParam = false) {
 
 function save(file = false) {
     var params = {
-            'admin_name'        : $('input[name=admin_name]').val(),
-            'admin_title'       : $('input[name=admin_title]').val(),
-            'admin_description' : $('textarea#desc').val(),
-            'admin_email'       : $('input[name=admin_email]').val(),
-            'admin_password'    : $('input[name=admin_password]').val(),
-            'role_id'           : $('select[name=role_id] :selected').val(),
-            'admin_photo'       : (file) ? file : ''
+            'item_name'        : $('input[name=item_name]').val(),
+            'item_price'       : $('input[name=item_price]').val(),
+            'item_description' : $('textarea#desc').val(),
+            'item_stock'       : $('input[name=item_stock]').val(),
+            'category_id'      : $('select[name=category_id] :selected').val(),
+            'item_image'       : (file) ? file : ''
         }
-
+        console.log(params);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -135,11 +134,12 @@ function uploadFile(forUpdate=false) {
         var reader = new FileReader();
         reader.onload = function(reader){
             if (forUpdate) {
-                $('#img-preview').attr('src', reader.target.result);
                 update(reader.target.result)
             }else{
                 save(reader.target.result)
             }
+            $('#img-preview').attr('src', reader.target.result);
+            $('#img-preview').css('display', 'block');
         }
         reader.readAsDataURL($("#photo").prop('files')[0]);
     }

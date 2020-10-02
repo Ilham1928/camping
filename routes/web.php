@@ -112,6 +112,7 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/update/{id}', 'ItemMasterController@update');
                 $router->get('/delete', 'ItemMasterController@delete');
                 $router->post('/delete/many', 'ItemMasterController@bulkDelete');
+                $router->get('/get-category', 'ItemMasterController@getCategory');
             });
 
             $router->group(['prefix' => '/item-category'], function () use ($router) {
