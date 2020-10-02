@@ -3,8 +3,6 @@
 namespace App\Http\Responses\Web\Item\Master;
 
 use App\Models\Item\ItemMaster;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 
 class ItemDeleteResponse implements Responsable

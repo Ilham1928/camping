@@ -36,6 +36,7 @@
                             <th>Nama Barang</th>
                             <th>Kategori Barang</th>
                             <th>Harga Sewa</th>
+                            <th>Stock</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -47,6 +48,7 @@
                             <th>Nama Barang</th>
                             <th>Kategori Barang</th>
                             <th>Harga Sewa</th>
+                            <th>Stock</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

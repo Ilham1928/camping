@@ -134,5 +134,13 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/delete/many', 'GuideController@bulkDelete');
             });
         });
+
+        $router->group(['namespace' => 'Order'], function () use ($router) {
+            $router->group(['prefix' => '/order-master'], function () use ($router) {
+                $router->get('/data', 'OrderController@getData');
+                $router->get('/', 'OrderController@index');
+                $router->get('/detail/{id}', 'OrderController@detail');
+            });
+        });
     });
 });

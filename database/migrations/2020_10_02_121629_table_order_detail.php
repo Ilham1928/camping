@@ -13,8 +13,8 @@ class TableOrderDetail extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('order')) {
-            Schema::create('order', function (Blueprint $table) {
+        if (!Schema::hasTable('order_detail')) {
+            Schema::create('order_detail', function (Blueprint $table) {
                 $table->Increments('order_detail_id')->deafult(1);
                 $table->integer('order_id');
                 $table->integer('item_id');
