@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Responses\Web\Item\Master;
+namespace App\Http\Responses\Web\Guide\Master;
 
-use App\Models\Item\ItemMaster;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
+use App\Models\Guide\Guide;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemDeleteResponse implements Responsable
+class GuideDeleteBulkResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -30,6 +28,8 @@ class ItemDeleteResponse implements Responsable
 
     protected function delete($request)
     {
-        ItemMaster::where('item_id', $request->item_id)->update([ 'status' => '0' ]);
+        foreach($request->guide_id as $guide_id){
+            Guide::where('guide_id', $guide_id)->update([ 'status' => '0' ]);
+        }
     }
 }

@@ -14,32 +14,40 @@
                 <div class="center">
                     <div class="row">
                         <div class="form-group-material col-sm-12">
-                            <label class="col-sm-2 form-control-label">Nama Barang :</label>
-                            <input type="text" name="item_name" class="input-material col-sm-8" required placeholder="contoh: Tenda 3x4">
+                            <label class="col-sm-2 form-control-label">Nama Pemandu :</label>
+                            <input type="text" name="guide_name" class="input-material col-sm-8" required placeholder="contoh: Daniel">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group-material col-sm-12">
-                            <label class="col-sm-2 form-control-label">Harga Barang / Hari :</label>
-                            <input type="number" name="item_price" class="input-material col-sm-8" required placeholder="contoh: 40.000">
+                            <label class="col-sm-2 form-control-label">Pengalaman Pemandu (Dalam Tahun) :</label>
+                            <input type="number" name="guide_experience" class="input-material col-sm-8" required placeholder="contoh: 4">
                         </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <label class="col-sm-2 form-control-label">Jenis Kelamin Pemandu :</label>
+                        <select class="col-sm-8"
+                            id="select"
+                            name="guide_gender"
+                            data-blobselect-search="true"
+                            data-blobselect-order-type="string"
+                            data-blobselect-order="asc"
+                            data-blobselect-watch="1">
+                            <option value="">---- Silakan Pilih ----</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
                     </div>
                     <div class="row">
                         <div class="form-group-material col-sm-12">
-                            <label class="col-sm-2 form-control-label">Deskripsi Barang :</label>
-                            <textarea name="item_description" id="desc" rows="3" class="input-material col-sm-8" placeholder="contoh: untuk ukuran 2 - 3 orang" required></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group-material col-sm-12">
-                            <label class="col-sm-2 form-control-label">Stok Barang :</label>
-                            <input type="number" name="item_stock" class="input-material col-sm-8" required placeholder="eg: 20">
+                            <label class="col-sm-2 form-control-label">Ulang Tahun Pemandu :</label>
+                            <input type="date" name="guide_birthday" class="input-material col-sm-8" required>
                         </div>
                     </div>
                 </form>
                 <div class="row">
                     <div class="form-group-material col-sm-12">
-                        <label class="col-sm-2 form-control-label">Gambar Barang :</label>
+                        <label class="col-sm-2 form-control-label">Foto Pemandu :</label>
                         <input type="file" name="item_image" class="input-material col-sm-6" id="photo" required>
                         <button type="button" onclick="uploadFile()" class="btn btn-primary btn-sm col-sm-2" style="margin-top:2%">Unggah</button>
                     </div>
@@ -62,5 +70,6 @@
 @endsection
 
 @section('js')
-<script src="{{url('js/page/general/item/item-master.js')}}" charset="utf-8"></script>
+<script src="{{url('js/plugin/blobselect.min.js')}}" charset="utf-8"></script>
+<script src="{{url('js/page/general/guide/guide.js')}}" charset="utf-8"></script>
 @endsection

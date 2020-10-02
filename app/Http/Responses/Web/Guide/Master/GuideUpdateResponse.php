@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Responses\Web\Item\Master;
+namespace App\Http\Responses\Web\Guide\Master;
 
-use App\Models\Item\ItemMaster;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use App\Models\Guide\Guide;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemSaveResponse implements Responsable
+class GuideUpdateResponse implements Responsable
 {
     public function toResponse($request)
     {
         try {
-            $this->create($request);
+            $this->update($request);
 
             return response()->json([
                 'code' => 200,
@@ -28,16 +26,18 @@ class ItemSaveResponse implements Responsable
         }
     }
 
-    protected function create($request)
+    protected function update($request)
     {
-        ItemMaster::create([
-            'item_name'        => $request->item_name,
-            'item_price'       => $request->item_price,
-            'item_description' => $request->item_description,
-            'category_id'      => $request->category_id,
-            'item_image'       => $this->decodeImage($request->item_image),
-            'item_stock'       => $request->item_stock,
-            'status'           => '1'
+        $guide = Guide::where('guide_id', $request->guide_id)->first();
+        $image = (!empty($request->guide_photo)) ? $this->decodeImage($request->guide_photo) : $guide->guide_photo;
+        $guide->update([
+            'guide_name' => $request->guide_name,
+            'guide_experience' => $request->guide_experience,
+            'guide_birthday' => $request->guide_birthday,
+            'guide_gender' => $request->guide_gender,
+            'guide_available' => 1,
+            'guide_photo' => $this->decodeImage($request->guide_photo),
+            'status' => '1'
         ]);
     }
 
@@ -49,7 +49,7 @@ class ItemSaveResponse implements Responsable
             $image = str_replace('data:image/'.$extension[1].';base64,', '', $file);
             $image = str_replace(' ', '+', $image);
             $imageName = str_random(10).'.'.$extension[1];
-            \File::put(storage_path(). '/app/public/item/' . $imageName, base64_decode($image));
+            \File::put(storage_path(). '/app/public/guide/' . $imageName, base64_decode($image));
         }
 
         return $imageName;

@@ -34,7 +34,7 @@ class GuideSaveResponse implements Responsable
             'guide_birthday' => $request->guide_birthday,
             'guide_gender' => $request->guide_gender,
             'guide_available' => 1,
-            'guide_photo' => $this->decodeImage($request->item_image),
+            'guide_photo' => $this->decodeImage($request->guide_photo),
             'status' => '1'
         ]);
     }

@@ -3,11 +3,10 @@
 namespace App\Http\Responses\Web\Item\Master;
 
 use App\Models\Item\ItemMaster;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemDeleteBulkResponse extends Controller implements Responsable
+class ItemDeleteBulkResponse implements Responsable
 {
     public function toResponse($request)
     {

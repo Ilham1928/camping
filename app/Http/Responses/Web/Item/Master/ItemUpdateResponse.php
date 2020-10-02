@@ -4,11 +4,10 @@ namespace App\Http\Responses\Web\Item\Master;
 
 use App\Models\Item\ItemMaster;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemUpdateResponse extends Controller implements Responsable
+class ItemUpdateResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -42,12 +41,6 @@ class ItemUpdateResponse extends Controller implements Responsable
             'item_image'       => $image,
             'item_stock'       => $request->item_stock,
             'status'           => '1'
-        ]);
-
-        $this->activity([
-            'activity_name' => 'Create New Item',
-            'activity_by' => Session::get('admin_name'),
-            'activity_detail' => 'Create new item at '.date('D m, Y H:i')
         ]);
     }
 

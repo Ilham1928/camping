@@ -16,15 +16,13 @@ function getData(queryParam = false) {
             if (res.code === 200) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
-                    var date = new Date();
-                    var age = date.setDate(date.getDate() - 2)
                     $('#tableData tbody').append(
                         '<tr>'
                             +'<td><input type="checkbox" name="check" onclick="selectData('+item.guide_id+')" value="'+ item.guide_id +'" class="checkbox-template"></td>'
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.guide_name + '</td>'
-                            +'<td>' + age + '</td>'
-                            +'<td>' + item.guide_age + '</td>'
+                            +'<td>' + item.guide_birthday + '</td>'
+                            +'<td>' + item.guide_gender + '</td>'
                             +'<td>'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.guide_id+')">Detail</button>'
                                 +'&nbsp'
@@ -54,14 +52,13 @@ function getData(queryParam = false) {
 
 function save(file = false) {
     var params = {
-            'item_name'        : $('input[name=item_name]').val(),
-            'item_price'       : $('input[name=item_price]').val(),
-            'item_description' : $('textarea#desc').val(),
-            'item_stock'       : $('input[name=item_stock]').val(),
-            'category_id'      : $('select[name=category_id] :selected').val(),
-            'item_image'       : (file) ? file : ''
+            'guide_name'        : $('input[name=guide_name]').val(),
+            'guide_experience'  : $('input[name=guide_experience]').val(),
+            'guide_birthday'    : $('input[name=guide_birthday]').val(),
+            'guide_gender'      : $('select[name=guide_gender] :selected').val(),
+            'guide_photo'       : (file) ? file : ''
         }
-        console.log(params);
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -96,13 +93,12 @@ function edit(id){
 function update(file = false) {
     var id =  $('input[name=queue]').val()
     var params = {
-            'item_id'          : id,
-            'item_name'        : $('input[name=item_name]').val(),
-            'item_price'       : $('input[name=item_price]').val(),
-            'item_description' : $('textarea#desc').val(),
-            'item_stock'       : $('input[name=item_stock]').val(),
-            'category_id'      : $('select[name=category_id] :selected').val(),
-            'item_image'       : (file) ? file : ''
+            'guide_id'          : id,
+            'guide_name'        : $('input[name=guide_name]').val(),
+            'guide_experience'  : $('input[name=guide_experience]').val(),
+            'guide_birthday'    : $('input[name=guide_birthday]').val(),
+            'guide_gender'      : $('select[name=guide_gender] :selected').val(),
+            'guide_photo'       : (file) ? file : ''
         }
 
     $.ajax({
@@ -151,7 +147,7 @@ function detail(id) {
 }
 
 function remove(id) {
-    var params = { 'item_id'  : id }
+    var params = { 'guide_id'  : id }
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -213,7 +209,7 @@ function bulkDelete(params) {
             type: 'POST',
             dataType: 'json',
             url: url+'/delete/many',
-            data: { "item_id" : params },
+            data: { "guide_id" : params },
             success: function(data, err, xhr){
                 if (data.code === 200) {
                     $(window).attr('location', url)

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Main\Guide;
 
+use App\Models\Guide\Guide;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\Item\ItemMaster;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -68,12 +68,10 @@ class GuideController extends Controller
             return $this->redirect();
         }
 
-        $data['title'] = 'Detail Data Barang';
-        $data['data']  = ItemMaster::where('item_id', $id)
-            ->with('category')
-            ->first();
+        $data['title'] = 'Detail Data Pemandu';
+        $data['data']  = Guide::where('guide_id', $id)->first();
 
-        return view('page.item.master.detail')->with($data);
+        return view('page.guide.master.detail')->with($data);
     }
 
     public function edit($id, Request $request)
@@ -83,20 +81,19 @@ class GuideController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = ItemMaster::where('item_id', $id)->first();
-        $data['title'] = 'Edit Data Barang';
-        return view('page.item.master.edit')->with($data);
+        $data['data']  = Guide::where('guide_id', $id)->first();
+        $data['title'] = 'Edit Data Pemandu';
+        return view('page.guide.master.edit')->with($data);
     }
 
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'item_id' => 'required|exists:item_master',
-            'item_name' => 'required',
-            'item_price' => 'required|numeric|min:1',
-            'item_description' => 'required|max:500',
-            'item_stock' => 'required',
-            'category_id' => 'required|exists:item_category,category_id',
+            'guide_id' => 'required|exists:guide',
+            'guide_name' => 'required',
+            'guide_experience' => 'required|numeric',
+            'guide_gender' => 'required|in:Laki-laki,Perempuan',
+            'guide_birthday' => 'required|date',
         ]);
 
         if($validator->fails()) {
@@ -106,7 +103,7 @@ class GuideController extends Controller
             ], 200);
         }
 
-        return new ItemUpdateResponse;
+        return new GuideUpdateResponse;
     }
 
     public function delete(Request $request)
@@ -118,7 +115,7 @@ class GuideController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'item_id' => 'required',
+            'guide_id' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -128,7 +125,7 @@ class GuideController extends Controller
             ], 200);
         }
 
-        return new ItemDeleteResponse;
+        return new GuideDeleteResponse;
     }
 
     public function bulkDelete(Request $request)
@@ -140,7 +137,7 @@ class GuideController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'item_id.*' => 'required',
+            'guide_id.*' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -150,11 +147,6 @@ class GuideController extends Controller
             ], 200);
         }
 
-        return new ItemDeleteBulkResponse;
-    }
-
-    public function getCategory(Request $request)
-    {
-        return new GetCategoryResponse;
+        return new GuideDeleteBulkResponse;
     }
 }

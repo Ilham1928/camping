@@ -49,7 +49,7 @@
             <hr>
             <div class="form-group-material row center">
                 <div class="col-sm-4 offset-sm-3">
-                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm">Back</button>
+                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm">Kembali</button>
                 </div>
             </div>
         </div>
