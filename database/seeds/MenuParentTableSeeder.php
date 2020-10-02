@@ -21,6 +21,10 @@ class MenuParentTableSeeder extends Seeder
                 'menu_icon_id' => 94
             ],
             [
+                'menu_parent_name' => 'Kelola Pemandu',
+                'menu_icon_id' => 44
+            ],
+            [
                 'menu_parent_name' => 'Kelola Pesanan',
                 'menu_icon_id' => 100
             ],

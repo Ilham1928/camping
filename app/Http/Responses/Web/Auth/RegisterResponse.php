@@ -5,15 +5,12 @@ namespace App\Http\Responses\Web\Auth;
 use \Firebase\JWT\JWT;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
-use App\Http\Controllers\Controller;
 
-class RegisterResponse extends Controller implements Responsable
+class RegisterResponse implements Responsable
 {
     public function toResponse($request)
     {
-
         try {
             $this->createData($request);
 

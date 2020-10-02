@@ -3,11 +3,9 @@
 namespace App\Http\Responses\Web\Item\Category;
 
 use App\Models\Item\ItemCategory;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemCategoryDeleteResponse extends Controller implements Responsable
+class ItemCategoryDeleteResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -30,12 +28,7 @@ class ItemCategoryDeleteResponse extends Controller implements Responsable
 
     protected function delete($request)
     {
-        ItemCategory::where('category_id', $request->category_id)->update([ 'status' => '0' ]);
-
-        $this->activity([
-            'activity_name' => 'Delete Data Category With ID: '. $request->category_id,
-            'activity_by' => Session::get('admin_name'),
-            'activity_detail' => 'Delete data category at '.date('D m, Y H:i')
-        ]);
+        ItemCategory::where('category_id', $request->category_id)
+            ->update([ 'status' => '0' ]);
     }
 }

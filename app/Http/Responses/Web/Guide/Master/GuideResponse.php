@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Responses\Web\Admin\Activity;
+namespace App\Http\Responses\Web\Guide\Master;
 
-use App\Models\Admin\AdminActivity;
+use App\Models\Guide\Guide;
 use Illuminate\Contracts\Support\Responsable;
 
-class ActivityResponse implements Responsable
+class GuideResponse implements Responsable
 {
     public function toResponse($request)
     {
-        $data = AdminActivity::paginate(10);
         try {
+            $data = $this->data($request);
+
             if (!$data->isEmpty()) {
                 return response()->json([
                     'code' => 200,
@@ -20,14 +21,23 @@ class ActivityResponse implements Responsable
             }else{
                 return response()->json([
                     'code' => 204,
-                    'data' => 'No Data',
+                    'data' => [],
+                    'message' => 'No Data',
                 ], 200);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 500,
-                'data' => $e->getMessage(),
+                'data' => [],
+                'message' => $e->getMessage(),
             ], 200);
         }
+    }
+
+    protected function data($request)
+    {
+        return Guide::query()
+            ->where('guide.status', '1')
+            ->paginate(10);
     }
 }

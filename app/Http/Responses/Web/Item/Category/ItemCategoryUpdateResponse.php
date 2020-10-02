@@ -3,12 +3,9 @@
 namespace App\Http\Responses\Web\Item\Category;
 
 use App\Models\Item\ItemCategory;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemCategoryUpdateResponse extends Controller implements Responsable
+class ItemCategoryUpdateResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -36,11 +33,5 @@ class ItemCategoryUpdateResponse extends Controller implements Responsable
                 'category_name' => $request->category_name,
                 'status' => '1',
             ]);
-
-        $this->activity([
-            'activity_name' => 'Update Category Item',
-            'activity_by' => Session::get('admin_name'),
-            'activity_detail' => 'Update category item at '.date('D m, Y H:i')
-        ]);
     }
 }

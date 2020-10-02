@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Responses\Web\Admin\Master;
+namespace App\Http\Responses\Web\Guide\Master;
 
-use App\Models\Admin\AdminMaster;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Guide\Guide;
 use Illuminate\Contracts\Support\Responsable;
 
-class AdminSaveResponse implements Responsable
+class GuideSaveResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -29,16 +28,14 @@ class AdminSaveResponse implements Responsable
 
     protected function create($request)
     {
-        AdminMaster::create([
-            'admin_name'        => $request->admin_name,
-            'admin_title'       => $request->admin_title,
-            'admin_description' => $request->admin_description,
-            'admin_email'       => $request->admin_email,
-            'admin_password'    => Hash::make($request->admin_password),
-            'role_id'           => $request->role_id,
-            'admin_photo'       => $this->decodeImage($request->admin_photo),
-            'admin_token'       => '',
-            'status'            => '1'
+        Guide::create([
+            'guide_name' => $request->guide_name,
+            'guide_experience' => $request->guide_experience,
+            'guide_birthday' => $request->guide_birthday,
+            'guide_gender' => $request->guide_gender,
+            'guide_available' => 1,
+            'guide_photo' => $this->decodeImage($request->item_image),
+            'status' => '1'
         ]);
     }
 
@@ -50,7 +47,7 @@ class AdminSaveResponse implements Responsable
             $image = str_replace('data:image/'.$extension[1].';base64,', '', $file);
             $image = str_replace(' ', '+', $image);
             $imageName = str_random(10).'.'.$extension[1];
-            \File::put(storage_path(). '/app/public/admin/' . $imageName, base64_decode($image));
+            \File::put(storage_path(). '/app/public/guide/' . $imageName, base64_decode($image));
         }
 
         return $imageName;

@@ -8,9 +8,8 @@ use App\Models\Admin\AdminMaster;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
-use App\Http\Controllers\Controller;
 
-class LoginResponse extends Controller implements Responsable
+class LoginResponse implements Responsable
 {
     public function toResponse($request)
     {

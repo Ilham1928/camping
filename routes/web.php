@@ -92,13 +92,6 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->get('/permission/{id}', 'PermissionController@index');
                 $router->get('/permission/{id}/save', 'PermissionController@save');
             });
-
-            $router->group(['prefix' => '/admin-activity'], function () use ($router) {
-                $router->get('/data', 'ActivityController@getData');
-                $router->get('/', 'ActivityController@index');
-                $router->get('/delete', 'ActivityDeleteController@delete');
-                $router->post('/delete/many', 'ActivityDeleteController@bulkDelete');
-            });
         });
 
         $router->group(['namespace' => 'Item'], function () use ($router) {
@@ -125,6 +118,20 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/update/{id}', 'ItemCategoryController@update');
                 $router->get('/delete', 'ItemCategoryController@delete');
                 $router->post('/delete/many', 'ItemCategoryController@bulkDelete');
+            });
+        });
+
+        $router->group(['namespace' => 'Guide'], function () use ($router) {
+            $router->group(['prefix' => '/guide-master'], function () use ($router) {
+                $router->get('/data', 'GuideController@getData');
+                $router->get('/', 'GuideController@index');
+                $router->get('/add', 'GuideController@add');
+                $router->post('/save', 'GuideController@save');
+                $router->get('/detail/{id}', 'GuideController@detail');
+                $router->get('/edit/{id}', 'GuideController@edit');
+                $router->post('/update/{id}', 'GuideController@update');
+                $router->get('/delete', 'GuideController@delete');
+                $router->post('/delete/many', 'GuideController@bulkDelete');
             });
         });
     });

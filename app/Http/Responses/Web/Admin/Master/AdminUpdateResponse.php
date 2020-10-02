@@ -3,13 +3,10 @@
 namespace App\Http\Responses\Web\Admin\Master;
 
 use App\Models\Admin\AdminMaster;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Support\Responsable;
-use App\Http\Controllers\Controller;
 
-class AdminUpdateResponse extends Controller implements Responsable
+class AdminUpdateResponse implements Responsable
 {
     public function toResponse($request)
     {
@@ -56,12 +53,6 @@ class AdminUpdateResponse extends Controller implements Responsable
                 'admin_photo'   => $image
             ]);
         }
-
-        $this->activity([
-            'activity_name' => 'Update Data Admin'. $request->admin_email,
-            'activity_by' => Session::get('admin_name'),
-            'activity_detail' => 'Update data admin at '.date('D m, Y H:i')
-        ]);
     }
 
     protected function decodeImage($file)

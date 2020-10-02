@@ -7,7 +7,6 @@ use App\Models\Menu\Config;
 use Illuminate\Http\Request;
 use App\Models\Menu\MenuParent;
 use App\Models\Menu\MenuChild;
-use App\Models\Admin\AdminActivity;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use App\Models\Admin\AdminRolePermission;
@@ -119,10 +118,5 @@ class Controller extends BaseController
     public function session()
     {
         Session::put(['error' => 'You have not access for that module']);
-    }
-
-    public function activity($param=[])
-    {
-        AdminActivity::insert($param);
     }
 }
