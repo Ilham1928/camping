@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Main\Item;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\Admin\AdminMaster;
+use App\Models\Item\ItemMaster;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Responses\Web\Item\Master\ItemResponse;
 use App\Http\Responses\Web\Item\Master\ItemSaveResponse;
+use App\Http\Responses\Web\Item\Master\ItemUpdateResponse;
+use App\Http\Responses\Web\Item\Master\ItemDeleteResponse;
+use App\Http\Responses\Web\Item\Master\ItemDeleteBulkResponse;
 use App\Http\Responses\Web\Item\Master\GetCategoryResponse;
 
 class ItemMasterController extends Controller
@@ -67,9 +70,12 @@ class ItemMasterController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = AdminMaster::where('item_id', $id)->first();
-        $data['title'] = 'Detail Data Admin';
-        return view('page.admin.master.detail')->with($data);
+        $data['title'] = 'Detail Data Barang';
+        $data['data']  = ItemMaster::where('item_id', $id)
+            ->with('category')
+            ->first();
+
+        return view('page.item.master.detail')->with($data);
     }
 
     public function edit($id, Request $request)
@@ -79,24 +85,20 @@ class ItemMasterController extends Controller
             return $this->redirect();
         }
 
-        $data['data']  = AdminMaster::where('item_id', $id)->first();
-        $data['title'] = 'Edit Data Admin';
-        return view('page.admin.master.edit')->with($data);
+        $data['data']  = ItemMaster::where('item_id', $id)->first();
+        $data['title'] = 'Edit Data Barang';
+        return view('page.item.master.edit')->with($data);
     }
 
     public function update($id, Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'item_id' => 'required|exists:item_master',
             'item_name' => 'required',
-            'item_title' => 'required',
+            'item_price' => 'required|numeric|min:1',
             'item_description' => 'required|max:500',
-            'item_email' => 'required|email|unique:item_master,item_email',
-            'role_id' => 'required|numeric',
-            'item_email' => [
-                'email','required', Rule::unique('item_master', 'item_email')->where(function ($query) use($request){
-                    return $query->where('item_id', '!=', $request->item_id);
-                })
-            ],
+            'item_stock' => 'required',
+            'category_id' => 'required|exists:item_category,category_id',
         ]);
 
         if($validator->fails()) {
@@ -105,7 +107,8 @@ class ItemMasterController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminUpdateResponse();
+
+        return new ItemUpdateResponse;
     }
 
     public function delete(Request $request)
@@ -126,7 +129,8 @@ class ItemMasterController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminDeleteResponse;
+
+        return new ItemDeleteResponse;
     }
 
     public function bulkDelete(Request $request)
@@ -147,7 +151,8 @@ class ItemMasterController extends Controller
                 'message' => $validator->errors()->first(),
             ], 200);
         }
-        return new AdminDeleteBulkResponse;
+
+        return new ItemDeleteBulkResponse;
     }
 
     public function getCategory(Request $request)

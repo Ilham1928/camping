@@ -159,6 +159,18 @@ function bulkDelete(params) {
     })
 }
 
+function selectData() {
+    var query = []
+    $('input[name="check"]:checked').each(function(){ query.push(this.value) })
+
+    if (query.length > 1) {
+        $('#bulkDelete').css('display', '')
+    }else{
+        $('#bulkDelete').css('display', 'none')
+    }
+    this.bulkDelete(query)
+}
+
 function selectAll(){
     var query = []
     if($('#checkbox-parent').prop('checked')){

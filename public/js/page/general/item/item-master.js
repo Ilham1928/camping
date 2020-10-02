@@ -16,12 +16,13 @@ function getData(queryParam = false) {
             if (res.code === 200) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
+                    var category = (!item.category) ? '-' : item.category.category_name
                     $('#tableData tbody').append(
                         '<tr>'
                             +'<td><input type="checkbox" name="check" onclick="selectData('+item.item_id+')" value="'+ item.item_id +'" class="checkbox-template"></td>'
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.item_name + '</td>'
-                            +'<td>' + item.category.category_name + '</td>'
+                            +'<td>' + category + '</td>'
                             +'<td>' + item.item_price + '</td>'
                             +'<td>'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.item_id+')">Detail</button>'
@@ -94,14 +95,13 @@ function edit(id){
 function update(file = false) {
     var id =  $('input[name=queue]').val()
     var params = {
-            'admin_id'          : id,
-            'admin_name'        : $('input[name=admin_name]').val(),
-            'admin_title'       : $('input[name=admin_title]').val(),
-            'admin_description' : $('textarea#desc').val(),
-            'admin_email'       : $('input[name=admin_email]').val(),
-            'admin_password'    : $('input[name=admin_password]').val(),
-            'role_id'           : $('select[name=role_id] :selected').val(),
-            'admin_photo'       : (file) ? file : ''
+            'item_id'          : id,
+            'item_name'        : $('input[name=item_name]').val(),
+            'item_price'       : $('input[name=item_price]').val(),
+            'item_description' : $('textarea#desc').val(),
+            'item_stock'       : $('input[name=item_stock]').val(),
+            'category_id'      : $('select[name=category_id] :selected').val(),
+            'item_image'       : (file) ? file : ''
         }
 
     $.ajax({
@@ -150,7 +150,7 @@ function detail(id) {
 }
 
 function remove(id) {
-    var params = { 'admin_id'  : id }
+    var params = { 'item_id'  : id }
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -212,7 +212,7 @@ function bulkDelete(params) {
             type: 'POST',
             dataType: 'json',
             url: url+'/delete/many',
-            data: { "admin_id" : params },
+            data: { "item_id" : params },
             success: function(data, err, xhr){
                 if (data.code === 200) {
                     $(window).attr('location', url)

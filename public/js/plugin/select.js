@@ -92,6 +92,7 @@ function selectRole(id) {
 
 function selectCategory(id) {
     var url = $('meta[name="__global_url"]').attr('content')
+    var category_id = (!id) ? $('select[name=category_id] :selected').val() : id
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -102,7 +103,7 @@ function selectCategory(id) {
         success: function(res){
             if (res.code === 200) {
                 $(res.data).each(function (index, item) {
-                    var selected = (item.category_id === id) ? 'selected' : ''
+                    var selected = (item.category_id === parseInt(category_id)) ? 'selected' : ''
                     var preview = '<option '+selected+' value="'+item.category_id+'">'+item.category_name+'</option>'
                     $('#select').append(preview)
                 })
