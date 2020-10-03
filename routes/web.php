@@ -60,6 +60,7 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
 
         $router->group(['prefix' => '/dashboard'], function () use ($router) {
             $router->get('/', 'Dashboard\DashboardController@index');
+            $router->get('/detail-item', 'Dashboard\DashboardController@detail');
         });
 
         $router->group(['namespace' => 'Admin'], function () use ($router) {

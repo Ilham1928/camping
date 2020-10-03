@@ -47,15 +47,6 @@ class RoleTableSeeder extends Seeder
                 'menu_edit' => '1',
                 'menu_delete' => '1',
                 'menu_other' => '1'
-            ],
-            [
-                'role_id' => 1,
-                'menu_id' => 3,
-                'menu_view' => '1',
-                'menu_add' => '1',
-                'menu_edit' => '1',
-                'menu_delete' => '1',
-                'menu_other' => '1'
             ]
         ];
         DB::table('admin_role_permission')->insert($param);

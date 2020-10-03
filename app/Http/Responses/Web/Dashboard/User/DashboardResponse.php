@@ -36,6 +36,6 @@ class DashboardResponse implements Responsable
     {
         return Guide::query()
             ->where('guide.status', '1')
-            ->paginate(10);
+            ->paginate(8);
     }
 }

@@ -16,6 +16,7 @@ class Guide extends Model
                                 'guide_experience',
                                 'guide_photo',
                                 'guide_available',
+                                'guide_price',
                                 'status'
                             ];
 }

@@ -12,13 +12,13 @@
                 <div class="my-list">
         			<img style="padding:10px"     src="{{ asset('storage/item/' . $item['item_image']) }}" />
         			<h3>Nama Alat : {{ $item['item_name'] }}</h3>
-        			<span>{{ $item['category']['category_name'] }}</span>
-        			<div class="offer">{{ substr($item['item_description'], 0, 50) }}..</div>
+        			<span>Kategori : {{ $item['category']['category_name'] }}</span>
+        			<div class="offer">Deskripsi : {{ substr($item['item_description'], 0, 50) }}..</div>
         			<div class="detail">
     		            <p>{{ $item['item_name'] }}</p>
                         <img style="padding:10px" src="{{ asset('storage/item/' . $item['item_image']) }}" />
                         <a href="#" class="btn btn-info">Pesan</a>
-                        <button data-toggle="modal" data-target="#myModal" class="btn btn-info">Deatil Barang</button>
+                        <button onclick="detail('item', {{ $item['item_id'] }})" class="btn btn-info">Detail Barang</button>
         			</div>
         		</div>
             </div>
@@ -46,7 +46,7 @@
         		            <p>{{ $guide['guide_name'] }}</p>
                             <img style="padding:10px" src="{{ asset('storage/guide/' . $guide['guide_photo']) }}" />
                             <a href="#" class="btn btn-info">Pesan Pemandu</a>
-                            <a href="#" class="btn btn-info">Deatil Pemandu</a>
+                            <button type="button" onclick="detail('guide', {{ $guide['guide_id'] }})" class="btn btn-info">Detail Pemandu</button>
             			</div>
             		</div>
                 @endforeach
@@ -65,12 +65,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <p>Some text in the modal.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script src="{{url('js/page/general/dashboard/user.js')}}" charset="utf-8"></script>
 @endsection

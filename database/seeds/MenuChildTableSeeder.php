@@ -21,12 +21,7 @@ class MenuChildTableSeeder extends Seeder
                 'menu_child_name' => 'Hak Akses Admin',
                 'menu_child_url' => 'admin-roles',
                 'menu_parent_id' => 1
-            ],
-            [
-                'menu_child_name' => 'Aktifitas Admin',
-                'menu_child_url' => 'admin-activity',
-                'menu_parent_id' => 1
-            ],
+            ]
             [
                 'menu_child_name' => 'Master Barang',
                 'menu_child_url' => 'item-master',
