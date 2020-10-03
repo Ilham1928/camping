@@ -21,6 +21,12 @@
                 </div>
                 <div class="row">
                     <div class="form-group-material col-sm-12">
+                        <label class="col-sm-2 form-control-label">Harga Pemandu / Hari :</label>
+                        <label class="col-sm-8">{{ number_format($data['guide_price']) }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Ulang Tahun :</label>
                         <label class="col-sm-8">{{ $data['guide_birthday'] }}</label>
                     </div>

@@ -17,11 +17,6 @@ function detail(type, id) {
             )
         },
         success: function(res){
-            var formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-            });
-
             if (res.code === 200) {
                 $('.modal-body').html("")
                 $('.modal-content').css('width', 'fit-content')
@@ -38,11 +33,17 @@ function detail(type, id) {
                 }
 
                 if (type === 'guide') {
+                    var date = new Date()
+                    var birthday = res.data.guide_birthday.split('-')
+                    var age = parseInt(date.getFullYear()) - parseInt(birthday[0])
                     $('.modal-body').empty().append(
                         '<img style="padding:10px" src="' + url + '/storage/guide/' + res.data.guide_photo +'" />'
                         +'<p style="padding-left:10px">'
                             +'<b>Nama Pemandu</b> : ' + res.data.guide_name + '</br>'
                             +'<b>Jenis Kelamin</b> : ' + res.data.guide_gender + '</br>'
+                            +'<b>Usia</b> : ' + age + ' Tahun </br>'
+                            +'<b>Harga Sewa</b> : <span style="color:red"> Rp.' + (res.data.guide_price).toLocaleString() + ' per hari</span></br>'
+                            +'<b>Pengalaman</b> : ' + res.data.guide_experience + ' Tahun</br>'
                         +'</p>'
                     )
                 }
@@ -52,7 +53,6 @@ function detail(type, id) {
                     '<p>Ada kesalahan server...</p>'
                 )
             }
-            console.log(res);
         },
         statusCode: {
             500: function(err) {
@@ -62,4 +62,12 @@ function detail(type, id) {
             }
         }
     })
+}
+
+function ageOld(dob) {
+    console.log(dob);
+    // var diff_ms = Date.now() - dob.getTime();
+    // var age_dt = new Date(diff_ms);
+    //
+    // return Math.abs(age_dt.getUTCFullYear() - 1970);
 }

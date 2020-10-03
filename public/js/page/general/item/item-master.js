@@ -23,7 +23,7 @@ function getData(queryParam = false) {
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.item_name + '</td>'
                             +'<td>' + category + '</td>'
-                            +'<td>' + item.item_price + '</td>'
+                            +'<td> Rp.' + (item.item_price).toLocaleString() + '</td>'
                             +'<td>' + item.item_stock + '</td>'
                             +'<td>'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.item_id+')">Detail</button>'

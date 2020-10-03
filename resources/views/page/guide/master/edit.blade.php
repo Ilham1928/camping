@@ -21,6 +21,12 @@
                     </div>
                     <div class="row">
                         <div class="form-group-material col-sm-12">
+                            <label class="col-sm-2 form-control-label">Harga Pemandu / Hari :</label>
+                            <input type="number" name="guide_price" value="{{ $data['guide_price'] }}" class="input-material col-sm-8" required placeholder="contoh: 100.000">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group-material col-sm-12">
                             <label class="col-sm-2 form-control-label">Pengalaman Pemandu (Dalam Tahun) :</label>
                             <input type="number" name="guide_experience" value="{{ $data['guide_experience'] }}" class="input-material col-sm-8" required placeholder="contoh: 4">
                         </div>
@@ -55,7 +61,7 @@
                     <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Foto Pemandu :</label>
                         <input type="file" name="item_image" class="input-material col-sm-6" id="photo" required>
-                        <button type="button" onclick="uploadFile()" class="btn btn-primary btn-sm col-sm-2" style="margin-top:2%">Unggah</button>
+                        <button type="button" onclick="uploadFile(true)" class="btn btn-primary btn-sm col-sm-2" style="margin-top:2%">Unggah</button>
                     </div>
                 </div>
                 <span id="preview">

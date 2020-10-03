@@ -36,6 +36,7 @@
                             <th>Nama Pemandu</th>
                             <th>Jenis Kelamin Pemandu</th>
                             <th>Usia Pemandu</th>
+                            <th>Harga Sewa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -47,6 +48,7 @@
                             <th>Nama Pemandu</th>
                             <th>Jenis Kelamin Pemandu</th>
                             <th>Usia Pemandu</th>
+                            <th>Harga Sewa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

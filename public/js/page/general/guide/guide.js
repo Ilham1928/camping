@@ -16,13 +16,18 @@ function getData(queryParam = false) {
             if (res.code === 200) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
+                    var date = new Date()
+                    var birthday = item.guide_birthday.split('-')
+                    var age = parseInt(date.getFullYear()) - parseInt(birthday[0])
+
                     $('#tableData tbody').append(
                         '<tr>'
                             +'<td><input type="checkbox" name="check" onclick="selectData('+item.guide_id+')" value="'+ item.guide_id +'" class="checkbox-template"></td>'
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.guide_name + '</td>'
-                            +'<td>' + item.guide_birthday + '</td>'
                             +'<td>' + item.guide_gender + '</td>'
+                            +'<td>' + age + ' Tahun</td>'
+                            +'<td> Rp.' + (item.guide_price).toLocaleString() + '</td>'
                             +'<td>'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.guide_id+')">Detail</button>'
                                 +'&nbsp'
@@ -55,6 +60,7 @@ function save(file = false) {
             'guide_name'        : $('input[name=guide_name]').val(),
             'guide_experience'  : $('input[name=guide_experience]').val(),
             'guide_birthday'    : $('input[name=guide_birthday]').val(),
+            'guide_price'       : $('input[name=guide_price]').val(),
             'guide_gender'      : $('select[name=guide_gender] :selected').val(),
             'guide_photo'       : (file) ? file : ''
         }
@@ -97,6 +103,7 @@ function update(file = false) {
             'guide_name'        : $('input[name=guide_name]').val(),
             'guide_experience'  : $('input[name=guide_experience]').val(),
             'guide_birthday'    : $('input[name=guide_birthday]').val(),
+            'guide_price'       : $('input[name=guide_price]').val(),
             'guide_gender'      : $('select[name=guide_gender] :selected').val(),
             'guide_photo'       : (file) ? file : ''
         }

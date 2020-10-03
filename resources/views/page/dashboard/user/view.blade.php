@@ -6,7 +6,7 @@
  <div class="container">
     <h3>Peralatan Camping</h3>
 	<div class="row">
-        @if(!empty($data['item']))
+        @if(!$data['item']->isEmpty())
             @foreach($data['item'] as $item)
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="my-list">
@@ -34,13 +34,13 @@
     <br><br><hr><br>
     <h3>Pemandu</h3>
 	<div class="row">
-		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            @if(!empty($data['guide']))
-                @foreach($data['guide'] as $guide)
+        @if(!$data['guide']->isEmpty())
+            @foreach($data['guide'] as $guide)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="my-list">
                         <img style="padding:10px" src="{{ asset('storage/guide/' . $guide['guide_photo']) }}" />
-            			<h3>{{ $guide['guide_name'] }}</h3>
-            			<span>{{ $guide['guide_gender'] }}</span>
+            			<h3>Nama : {{ $guide['guide_name'] }}</h3>
+            			<span>Jenis Kelamin : {{ $guide['guide_gender'] }}</span>
             			<div class="offer">Pengalaman : {{ $guide['guide_experience'] }} Tahun</div>
             			<div class="detail">
         		            <p>{{ $guide['guide_name'] }}</p>
@@ -49,11 +49,11 @@
                             <button type="button" onclick="detail('guide', {{ $guide['guide_id'] }})" class="btn btn-info">Detail Pemandu</button>
             			</div>
             		</div>
-                @endforeach
-            @else
-                <p>Tidak Ada Pemandu</p>
-            @endif
-		</div>
+                </div>
+            @endforeach
+        @else
+            <p>Tidak Ada Pemandu</p>
+        @endif
 	</div>
     <br>
     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">

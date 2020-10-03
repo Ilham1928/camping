@@ -48,6 +48,7 @@ class GuideController extends Controller
             'guide_experience' => 'required|numeric',
             'guide_gender' => 'required|in:Laki-laki,Perempuan',
             'guide_birthday' => 'required|date',
+            'guide_price' => 'required|numeric',
             'guide_photo' => 'required',
         ]);
 
@@ -93,6 +94,7 @@ class GuideController extends Controller
             'guide_name' => 'required',
             'guide_experience' => 'required|numeric',
             'guide_gender' => 'required|in:Laki-laki,Perempuan',
+            'guide_price' => 'required|numeric',
             'guide_birthday' => 'required|date',
         ]);
 

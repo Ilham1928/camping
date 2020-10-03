@@ -22,6 +22,7 @@ class TableGuide extends Migration
                 $table->enum('guide_gender', ['Laki-laki', 'Perempuan']);
                 $table->string('guide_photo', 100);
                 $table->boolean('guide_available');
+                $table->integer('guide_price');
                 $table->enum('status', ['1', '0']);
                 $table->timestamps();
             });

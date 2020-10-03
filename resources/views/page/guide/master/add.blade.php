@@ -20,6 +20,12 @@
                     </div>
                     <div class="row">
                         <div class="form-group-material col-sm-12">
+                            <label class="col-sm-2 form-control-label">Harga Pemandu / Hari :</label>
+                            <input type="number" name="guide_price" class="input-material col-sm-8" required placeholder="contoh: 100.000">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group-material col-sm-12">
                             <label class="col-sm-2 form-control-label">Pengalaman Pemandu (Dalam Tahun) :</label>
                             <input type="number" name="guide_experience" class="input-material col-sm-8" required placeholder="contoh: 4">
                         </div>

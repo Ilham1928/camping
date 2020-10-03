@@ -31,6 +31,7 @@ class GuideSaveResponse implements Responsable
         Guide::create([
             'guide_name' => $request->guide_name,
             'guide_experience' => $request->guide_experience,
+            'guide_price' => $request->guide_price,
             'guide_birthday' => $request->guide_birthday,
             'guide_gender' => $request->guide_gender,
             'guide_available' => 1,
