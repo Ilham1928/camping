@@ -4,129 +4,52 @@
 @endsection
 @section('content')
  <div class="container">
-     <h3>{{ $title }}</h3>
+    <h3>Peralatan Camping</h3>
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>HP Core i3 6th Gen</h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<a href="#" class="btn btn-info">Add To Cart</a>
-			<a href="#" class="btn btn-info">Deatil</a>
-			</div>
+            @if(!empty($data['item']))
+                @foreach($data['item'] as $item)
+                    <div class="my-list">
+            			<img src="{{ asset('storage/item/' . $item['item_image']) }}" />
+            			<h3>Nama Alat : {{ $item['item_name'] }}</h3>
+            			<span>{{ $item['category']['category_name'] }}</span>
+            			<div class="offer">{{ substr($item['item_description'], 0, 50) }}..</div>
+            			<div class="detail">
+        		            <p>{{ $item['item_name'] }}</p>
+                            <img src="{{ asset('storage/item/' . $item['item_image']) }}" />
+                            <a href="#" class="btn btn-info">Pesan</a>
+                            <a href="#" class="btn btn-info">Deatil Barang</a>
+            			</div>
+            		</div>
+                @endforeach
+            @else
+                <p>Tidak Ada Peralatan</p>
+            @endif
 		</div>
+	</div>
+    <hr><br>
+    <h3>Pemandu</h3>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            @if(!empty($data['guide']))
+                @foreach($data['guide'] as $guide)
+                    <div class="my-list">
+                        <img style="padding:10px" src="{{ asset('storage/guide/' . $guide['guide_photo']) }}" />
+            			<h3>{{ $guide['guide_name'] }}</h3>
+            			<span>{{ $guide['guide_gender'] }}</span>
+            			<div class="offer">Pengalaman : {{ $guide['guide_experience'] }} Tahun</div>
+            			<div class="detail">
+        		            <p>{{ $guide['guide_name'] }}</p>
+                            <img style="padding:10px" src="{{ asset('storage/guide/' . $guide['guide_photo']) }}" />
+                            <a href="#" class="btn btn-info">Pesan Pemandu</a>
+                            <a href="#" class="btn btn-info">Deatil Pemandu</a>
+            			</div>
+            		</div>
+                @endforeach
+            @else
+                <p>Tidak Ada Pemandu</p>
+            @endif
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Micromax Canvas Laptab</h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format</p>
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Asus APU Quad Core A8 </h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Asus APU Quad Core A8 </h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Asus APU Quad Core A8 </h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Asus APU Quad Core A8 </h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Asus APU Quad Core A8 </h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-		<a href="#" class="btn btn-info">Add To Cart</a>
-		<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-		<div class="my-list">
-			<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<h3>Dell Inspiron 11 3162</h3>
-			<span>RS:45K</span>
-			<span class="pull-right">SKU:100022</span>
-			<div class="offer">Extra 5% Off. Cart value Rs 500</div>
-			<div class="detail">
-			<p>Glyphicons in Bootstrap : Bootstrap Includes over 250 glyphs in font format </p>
-				<img src="http://hpservicecenterschennai.in/images/hp_laptop_service_centers_in_guindy.png" alt="dsadas" />
-			<a href="#" class="btn btn-info">Add To Cart</a>
-			<a href="#" class="btn btn-info">Deatil</a>
-			</div>
-		</div>
-		</div>
-
-		</div>
-    </div>
-    @endsection
+	</div>
+</div>
+@endsection

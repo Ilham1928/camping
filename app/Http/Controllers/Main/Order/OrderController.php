@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function getData(Request $request)
     {
-        return new ItemResponse;
+        return new OrderResponse;
     }
 
     public function index(Request $request)

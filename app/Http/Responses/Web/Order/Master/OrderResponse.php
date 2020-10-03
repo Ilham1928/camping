@@ -5,7 +5,7 @@ namespace App\Http\Responses\Web\Order\Master;
 use App\Models\Order\Order;
 use Illuminate\Contracts\Support\Responsable;
 
-class ItemResponse implements Responsable
+class OrderResponse implements Responsable
 {
     public function toResponse($request)
     {
