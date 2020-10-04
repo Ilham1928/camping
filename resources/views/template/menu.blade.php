@@ -38,7 +38,7 @@
                 @endif
             @endforeach
         @else
-            <li class="">
+            <li class="order-li">
                 <a href="#dropdown" aria-expanded="" data-toggle="collapse">
                     <i class="demo-icon">&#xe8ba;</i>Pesanan Saya
                 </a>

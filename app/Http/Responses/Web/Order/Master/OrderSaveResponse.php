@@ -13,12 +13,12 @@ class OrderSaveResponse implements Responsable
     public function toResponse($request)
     {
         try {
-            $this->create($request);
+            $order = $this->create($request);
 
             return response()->json([
                 'code' => 200,
                 'messsage' => 'Success',
-                'data' => new \stdClass
+                'data' => $order
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -33,9 +33,9 @@ class OrderSaveResponse implements Responsable
     {
         $order = Order::create([
             'user_id' => Session::get('user_id'),
-            'order_code' => 'Spader - ' . date('Y-m-d') . '-' . Str::uuid(),
+            'order_code' => 'Spader - ' . date('Ymd') . rand(),
             'order_date' => $request->date,
-            'order_type' => $request->type,
+            'order_type' => ($request->type == 'item') ? 'Barang' : 'Pemandu',
             'status' => '1'
         ]);
 
@@ -46,5 +46,8 @@ class OrderSaveResponse implements Responsable
             'order_qty' => $request->qty,
             'status' => 1
         ]);
+
+
+        return $order->order_code;
     }
 }

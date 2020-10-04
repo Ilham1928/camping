@@ -11,6 +11,7 @@ function detail(type, id) {
         url: url + '/dashboard/detail-item',
         beforeSend: function(){
             $('#myModal').modal('toggle')
+            $('.modal-footer').empty().append('<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>')
             $('.modal-content').css('width', '100%')
             $('.modal-body').empty().append(
                 '<p>Silakan Tunggu ...</p>'
@@ -18,6 +19,7 @@ function detail(type, id) {
         },
         success: function(res){
             if (res.code === 200) {
+                $('.modal-footer').empty().append('<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>')
                 $('.modal-body').html("")
                 $('.modal-content').css('width', 'fit-content')
                 if (type === 'item') {
@@ -65,12 +67,14 @@ function detail(type, id) {
 }
 
 function getForm(type, id, name) {
-    console.log(name);
     var cart = "'" + type + "'" + "," + id
     var tipe = (type === 'guide') ? 'Pemandu' : 'Alat Camping'
     $('#myModal').modal('toggle')
     $('.modal-content').css('width', '100%')
-    $('.modal-footer').empty().append('<button type="button" onclick="addToCart('+ cart +')" id="button-order" class="btn btn-success">Sewa</button>')
+    $('.modal-footer').empty().append(
+         '<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>'
+        +'<button type="button" onclick="addToCart('+ cart +')" id="button-order" class="btn btn-success">Sewa</button>'
+    )
     $('.modal-body').empty().append(
         '<form class="form-horizontal" id="form-order">'
             +'<p class="error-message"></p>'
@@ -111,6 +115,7 @@ function getForm(type, id, name) {
 }
 
 function addToCart(type, id) {
+    var firstOrder = $('#class').text()
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -123,6 +128,7 @@ function addToCart(type, id) {
             'total_rental' : $('input[name=total_rental]').val(),
             'qty' : $('input[name=qty]').val(),
             'date' : $('input[name=date]').val(),
+            'code' : $('#class span').text()
         },
         url: url + '/order-master/save',
         beforeSend: function(){
@@ -130,11 +136,31 @@ function addToCart(type, id) {
         },
         success: function(res){
             if (res.code === 200) {
+                var totalOrder = parseInt(firstOrder) + parseInt(1)
+                $('#class').empty().append(totalOrder)
+                $('.modal-footer').empty().append('<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>')
                 $('.modal-body').empty().append('<p>Sukses menambahkan ke daftar pesanan</p>')
                 $('#button-order').empty().append('Tutup')
                 $('#button-order').removeClass('btn-success').removeAttr('onclick')
                 $('#button-order').addClass('btn-default').attr('data-dismiss', 'modal')
+                $(".order-li").empty().append(
+                    '<a href="#dropdown" aria-expanded="" data-toggle="collapse">'
+                        +'<i class="demo-icon">&#xe8ba;</i>Pesanan Saya &nbsp;'
+                        +'<span class="badge bg-red badge-corner">'+ totalOrder +'</span>'
+                    +'</a>'
+                    +'<ul id="dropdown" class="collapse list-unstyled ">'
+                        +'<li class="">'
+                            +'<a href="' + url + '/order-future">'
+                                +'Pesanan Akan Datang &nbsp;'
+                                +'<span class="badge bg-red badge-corner">'+ totalOrder +'</span>'
+                            +'</a>'
+                        +'</li>'
+                        +'<li class=""><a href="' + url + '/order-past">Pesanan Berlalu</a></li>'
+                    +'</ul>'
+                )
+
             }else{
+                $('#button-order').empty().append('Sewa')
                 $('.error-message').css('display', 'block').css('margin-left', '7rem')
                 $('.error-message').empty().append(res.message)
             }

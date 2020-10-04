@@ -31,28 +31,6 @@
                         </a>
                     </li>
 
-                    <!-- notification -->
-                    <li class="nav-item dropdown">
-                        <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="badge bg-red badge-corner">12</span>
-                        </a>
-                        <ul aria-labelledby="notifications" class="dropdown-menu">
-                            <li>
-                                <a rel="nofollow" href="#" class="dropdown-item">
-                                    <div class="notification">
-                                        <div class="notification-content">
-                                            <i class="fa fa-envelope bg-green"></i>You have 6 new messages
-                                        </div>
-                                        <div class="notification-time">
-                                            <small>4 minutes ago</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
                     <!-- logout -->
                     <li class="nav-item">
                         <a href="{{ url('logout') }}" class="nav-link logout">

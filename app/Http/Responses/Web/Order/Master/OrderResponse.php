@@ -37,7 +37,11 @@ class OrderResponse implements Responsable
     protected function data($request)
     {
         return Order::query()
-            ->with('orderDeail')
+            ->with(['orderDetail' => function($query){
+                $query->select('*')
+                    ->selectRaw("SUM(order_detail.order_qty) as qty")
+                    ->groupBy('order_detail.item_id');
+            }])
             ->where('order.status', '1')
             ->paginate(10);
     }

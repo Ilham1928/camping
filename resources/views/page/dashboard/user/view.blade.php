@@ -31,6 +31,7 @@
     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
         {{ $data['item']->links() }}
     </div>
+    <span id="class" style="display:none">0</span>
     <br><br><hr><br>
     <h3>Pemandu</h3>
 	<div class="row">

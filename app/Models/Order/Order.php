@@ -18,9 +18,9 @@ class Order extends Model
                                 'payment_online',
                                 'status'
                             ];
-                            
+
     public function orderDetail()
     {
-        return $this->hasMany('App\Models\Order\OrderDetail');
+        return $this->hasMany('App\Models\Order\OrderDetail', 'order_id', 'order_id');
     }
 }
