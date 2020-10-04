@@ -17,7 +17,7 @@
         			<div class="detail">
     		            <p>{{ $item['item_name'] }}</p>
                         <img style="padding:10px" src="{{ asset('storage/item/' . $item['item_image']) }}" />
-                        <a href="#" class="btn btn-info">Pesan</a>
+                        <button type="button" onclick="getForm('item', {{ $item['item_id'] }}, '{{ $item['item_name'] }}')" class="btn btn-info">Pesan</button>
                         <button onclick="detail('item', {{ $item['item_id'] }})" class="btn btn-info">Detail Barang</button>
         			</div>
         		</div>
@@ -45,7 +45,7 @@
             			<div class="detail">
         		            <p>{{ $guide['guide_name'] }}</p>
                             <img style="padding:10px" src="{{ asset('storage/guide/' . $guide['guide_photo']) }}" />
-                            <a href="#" class="btn btn-info">Pesan Pemandu</a>
+                            <button type="button" onclick="getForm('guide', {{ $guide['guide_id'] }}, '{{ $guide['guide_name'] }}')" class="btn btn-info">Pesan Pemandu</button>
                             <button type="button" onclick="detail('guide', {{ $guide['guide_id'] }})" class="btn btn-info">Detail Pemandu</button>
             			</div>
             		</div>
