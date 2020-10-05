@@ -22,7 +22,7 @@ class OrderController extends Controller
         if (!$auth) {
             return $this->redirect();
         }
-        $data['title']  = 'Kelola Barang';
+        $data['title']  = 'Kelola Pesanan';
         return view('page.order.master.view')->with($data);
     }
 
@@ -34,9 +34,16 @@ class OrderController extends Controller
         }
 
         $data['title'] = 'Detail Data Pesanan';
-        $data['data']  = Order::where('order_id', $id)
-            ->with('orderDetail')
-            ->first();
+        $data['data']  = Order::query()
+            ->select('*')
+            ->where('order.order_id', $id)
+            ->selectRaw("SUM(order_detail.order_qty) as qty")
+            ->leftJoin('user', 'user.user_id', '=', 'order.user_id')
+            ->leftJoin('order_detail', 'order.order_id', '=', 'order_detail.order_id')
+            ->groupBy('order_detail.order_id')
+            ->whereRaw("MONTH(`order_date`) = MONTH(CURDATE())")
+            ->where('order.status', '1')
+            ->first(10);
 
         return view('page.order.master.detail')->with($data);
     }

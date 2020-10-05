@@ -21,7 +21,7 @@ class TableUser extends Migration
                 $table->text('password');
                 $table->text('address');
                 $table->string('photo', 100);
-                $table->integer('id_card');
+                $table->bigInteger('id_card');
                 $table->text('token');
                 $table->integer('role_id');
                 $table->enum('status', ['1', '0']);
