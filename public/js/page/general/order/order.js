@@ -16,13 +16,16 @@ function getData(queryParam = false) {
             if (res.code === 200) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
+
+                    var unit = (item.order_type === 'Pemandu') ? 'Orang' : 'Item'
+
                     $('#tableData tbody').append(
                         '<tr>'
                             +'<td>' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.order_date + '</td>'
                             +'<td>' + item.order_code + '</td>'
-                            +'<td>' + item.qty + '</td>'
-                            +'<td>' + item.qty + '</td>'
+                            +'<td>' + item.qty + ' ' + unit + '</td>'
+                            +'<td>' + item.order_type + '</td>'
                             +'<td>'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.order_id+')">Detail</button>'
                             +'</td>'

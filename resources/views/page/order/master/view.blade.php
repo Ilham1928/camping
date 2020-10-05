@@ -30,7 +30,7 @@
                             <th>#</th>
                             <th>Tanggal Pesanan</th>
                             <th>Code Pesanan</th>
-                            <th>Total Bayar</th>
+                            <th>Total item</th>
                             <th>Tipe Pesanan</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,7 +41,7 @@
                             <th>#</th>
                             <th>Tanggal Pesanan</th>
                             <th>Code Pesanan</th>
-                            <th>Total Bayar</th>
+                            <th>Total item</th>
                             <th>Tipe Pesanan</th>
                             <th>Aksi</th>
                         </tr>
