@@ -43,6 +43,7 @@ class OrderResponse implements Responsable
             ->groupBy('order_detail.order_id')
             ->whereRaw("MONTH(`order_date`) = MONTH(CURDATE())")
             ->where('order.status', '1')
+            ->where('order.is_checkout', 1)
             ->paginate(10);
     }
 }

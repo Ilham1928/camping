@@ -11,6 +11,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Responses\Web\Order\Master\OrderResponse;
 use App\Http\Responses\Web\Order\Master\OrderSaveResponse;
+use App\Http\Responses\Web\Order\Master\OrderProcessResponse;
+use App\Http\Responses\Web\Order\Master\OrderCancelResponse;
+use App\Http\Responses\Web\Order\Master\GetTotalPriceResponse;
 use App\Http\Responses\Web\Order\Master\OrderDetailUpdateResponse;
 
 class OrderController extends Controller
@@ -101,5 +104,54 @@ class OrderController extends Controller
         }
 
         return new OrderDetailUpdateResponse;
+    }
+
+    public function getTotalPrice(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:order,order_id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'message' => $validator->errors()->first(),
+            ], 200);
+        }
+
+        return new GetTotalPriceResponse;
+    }
+
+    public function process(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:order,order_id',
+            'total_price' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'message' => $validator->errors()->first(),
+            ], 200);
+        }
+
+        return new OrderProcessResponse;
+    }
+
+    public function cancel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:order,order_id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'message' => $validator->errors()->first(),
+            ], 200);
+        }
+
+        return new OrderCancelResponse;
     }
 }

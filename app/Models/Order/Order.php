@@ -15,7 +15,9 @@ class Order extends Model
                                 'total_price',
                                 'order_date',
                                 'order_type',
-                                'payment_online',
+                                'order_note',
+                                'is_cancel',
+                                'is_checkout',
                                 'status'
                             ];
 

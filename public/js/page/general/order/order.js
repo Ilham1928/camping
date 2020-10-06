@@ -2,6 +2,9 @@ var url = $('meta[name="__global_url"]').attr('content')+'/order-master'
 
 function getData(queryParam = false) {
     var query   = (queryParam) ? queryParam : '?page=1'
+
+
+
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -17,21 +20,25 @@ function getData(queryParam = false) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
 
+                    var cancel = (item.is_cancel == 1) ? '<span style="color:red">Pesanan Dibatalkan</span>' : '<span style="color:green">Pesanan Diproses</span<'
                     var unit = (item.order_type === 'Pemandu') ? 'Orang' : 'Item'
+                    var disabled = parseInt(item.total_price) > 0 ? 'disabled' : ''
+                    var disableCacncel = parseInt(item.is_cancel) === 1 ? 'disabled' : ''
 
                     $('#tableData tbody').append(
                         '<tr>'
-                            +'<td>' + (parseInt, res.data.from+index) + '</td>'
+                            +'<td> <span id="'+ item.order_id +'" style="display:none">'+ item.total_price +'</span> ' + (parseInt, res.data.from+index) + '</td>'
                             +'<td>' + item.order_date + '</td>'
                             +'<td>' + item.order_code + '</td>'
                             +'<td>' + item.qty + ' ' + unit + '</td>'
                             +'<td>' + item.order_type + '</td>'
+                            +'<td>' + cancel + '</td>'
                             +'<td>'
-                                +'<button type="button" name="button" class="btn btn-success btn-sm" onclick="detail('+item.order_id+')">Proses</button>'
+                                +'<button type="button" '+ disableCacncel + disabled +' name="button" class="btn btn-success btn-sm" onclick="getTotalPrice('+item.order_id+')">Proses</button>'
                                 +'&nbsp'
-                                +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.order_id+')">Detail</button>'
+                                +'<button type="button" '+ disableCacncel +' name="button" class="btn btn-warning btn-sm" onclick="detail('+item.order_id+')">Detail</button>'
                                 +'&nbsp'
-                                +'<button type="button" name="button" class="btn btn-danger btn-sm" onclick="detail('+item.order_id+')">Hapus</button>'
+                                +'<button type="button" '+ disableCacncel + disabled +' name="button" class="btn btn-danger btn-sm" onclick="cancel('+item.order_id+')">Batalkan</button>'
                             +'</td>'
                         +'</tr>'
                     )
@@ -55,4 +62,123 @@ function getData(queryParam = false) {
 
 function detail(id) {
     $(window).attr('location', url+'/detail/'+id)
+}
+
+function getTotalPrice(id) {
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: url+'/total-price?id='+id,
+        success: function(res){
+            if (res.code == 200) {
+                getForm(id, res.data)
+            }else{
+                getForm(id, 0)
+            }
+        }
+    })
+}
+
+function getForm(id, totalPrice=false) {
+    var price = $('#'+id).text()
+    var selectedPay = parseInt(price) > 0 ? 'checked' : ''
+    var selectedNotPay = parseInt(price) > 0 ? '' : 'checked'
+
+    $('#myModal').modal('toggle')
+    $('.modal-body').empty().append(
+        '<form class="form-horizontal" id="form-order">'
+            +'<center>'
+                +'<p style="color:red" id="error-form"></p>'
+            +'</center>'
+            +'<div class="center">'
+                +'<br>'
+                +'<div class="row">'
+                    +'<span class="input-material col-sm-12">'
+                        +'<b>Total Yang Harus Dibayar : </b>'
+                        +'<label style="color:red">Rp.'+ totalPrice.toLocaleString() +'</label>'
+                    +'</span>'
+                +'</div>'
+                +'<br>'
+                +'<div class="row">'
+                    +'<div class="form-group-material col-sm-12">'
+                            +'<b>Lunas : </b>'
+                            +'&nbsp;&nbsp;'
+                            +'<input '+ selectedPay +' type="radio" disabled name="radio" class="radio-template"> Lunas'
+                            +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                            +'<input '+ selectedNotPay +' type="radio" disabled name="radio" class="radio-template"> Belum Lunas'
+                    +'</div>'
+                +'</div>'
+                +'<br>'
+                +'<div class="row">'
+                    +'<div class="form-group-material col-sm-12">'
+                            +'<b>Biaya yang di bayar : </b>'
+                            +'<input type="number" id="total_price-'+ id +'" class="input-material col-sm-12">'
+                    +'</div>'
+                +'</div>'
+                +'<br>'
+                +'<div class="row">'
+                    +'<div class="form-group-material col-sm-12">'
+                            +'<b>Keterangan : </b>'
+                            +'<input type="text" id="note-'+ id +'" class="input-material col-sm-12" placeholder="opsional">'
+                    +'</div>'
+                +'</div>'
+            +'</div>'
+        +'</form>'
+    )
+
+    $('.modal-footer').empty().append(
+         '<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>'
+        +'<button type="button" onclick="process('+ id +')" id="button-order" class="btn btn-success">Proses</button>'
+    )
+}
+
+function process(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        type: 'POST',
+        dataType: 'json',
+        url: url+'/process',
+        data: {
+            id: id,
+            total_price: $('#total_price-'+id).val(),
+            note: $('#note-'+id).val()
+
+        },
+        success: function(res){
+            if (res.code == '200') {
+                window.location.reload()
+            }else{
+                $('#error-form').css('display', 'block')
+                $('#error-form').empty().append(
+                    res.message
+                )
+            }
+        }
+    })
+}
+
+function cancel(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        type: 'POST',
+        dataType: 'json',
+        url: url+'/cancel',
+        data: {
+            id: id
+        },
+        success: function(res){
+            if (res.code == '200') {
+                window.location.reload()
+            }else{
+                $('.error-message').css('display', 'block')
+                $('.error-message').empty().append(
+                    res.message
+                )
+            }
+        }
+    })
 }

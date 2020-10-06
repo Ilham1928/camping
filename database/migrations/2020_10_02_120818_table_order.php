@@ -21,7 +21,9 @@ class TableOrder extends Migration
                 $table->integer('total_price');
                 $table->date('order_date');
                 $table->enum('order_type', ['Barang', 'Pemandu']);
-                $table->boolean('payment_online');
+                $table->text('order_note');
+                $table->boolean('is_cancel');
+                $table->boolean('is_checkout');
                 $table->enum('status', ['1', '0']);
                 $table->timestamps();
             });

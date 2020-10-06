@@ -30,9 +30,29 @@
                 <div class="row">
                     <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Status Pembayaran :</label>
-                        <label class="col-sm-8">{{ $price = ($data['total_price'] == 0) ? 'Belum Bayar' : 'Sudah Bayar' }}</label>
+                        <label class="col-sm-8">{{ $price = ($data['is_cancel'] == 0) ? 'Belum Bayar' : 'Sudah Bayar' }}</label>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group-material col-sm-12">
+                        <label class="col-sm-2 form-control-label">Status Pesanan :</label>
+                        <label class="col-sm-8">{{ $isCancel = ($data['total_price'] == 0) ? 'Diproses' : 'Dibatalkan' }}</label>
+                    </div>
+                </div>
+                @if($data['total_price'] != 0)
+                    <div class="row">
+                        <div class="form-group-material col-sm-12">
+                            <label class="col-sm-2 form-control-label">Total Yang dibayar :</label>
+                            <label class="col-sm-8">{{ $data['total_price'] }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group-material col-sm-12">
+                            <label class="col-sm-2 form-control-label">Catatan :</label>
+                            <label class="col-sm-8">{{ $data['order_note'] }}</label>
+                        </div>
+                    </div>
+                @endif
                 <strong>Data Pemesan</strong>
                 <hr>
                 <div class="row">
@@ -65,11 +85,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nama Barang</th>
+                                <th>Nama</th>
                                 <th>Lama Sewa</th>
                                 <th>Total Sewa</th>
-                                <th>Harga Sewa Barang</th>
-                                <th>Aksi</th>
+                                <th>Harga Sewa</th>
+                                @if($data['total_price'] == 0)
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -84,21 +106,27 @@
                                     <td>{{ $value+1 }}</td>
                                     @if($data['order_type'] == 'Barang')
                                         <td>{{ $detail['item_name'] }}</td>
-                                        <td>
-                                            <span class="span-rental-{{ $detail['order_detail_id'] }}">{{ $detail['total_rental'] }} Hari</span>
-                                            <input type="number" class="input-material col-sm-8 input-rental-{{ $detail['order_detail_id'] }}" style="display:none">
-                                        </td>
-                                        <td>
-                                            <span class="span-qty-{{ $detail['order_detail_id'] }}">{{ $detail['order_qty'] }}</span>
-                                            <input type="number" class="input-material col-sm-8 input-qty-{{ $detail['order_detail_id'] }}" style="display:none">
-                                        </td>
+                                    @else
+                                        <td>{{ $detail['guide_name'] }}</td>
+                                    @endif
+                                    <td>
+                                        <span class="span-rental-{{ $detail['order_detail_id'] }}">{{ $detail['total_rental'] }} Hari</span>
+                                        <input type="number" class="input-material col-sm-8 input-rental-{{ $detail['order_detail_id'] }}" style="display:none">
+                                    </td>
+                                    <td>
+                                        <span class="span-qty-{{ $detail['order_detail_id'] }}">{{ $detail['order_qty'] }}</span>
+                                        <input type="number" class="input-material col-sm-8 input-qty-{{ $detail['order_detail_id'] }}" style="display:none">
+                                    </td>
+                                    @if($data['order_type'] == 'Barang')
                                         <td>Rp.{{ number_format($detail['item_price']) }} / Hari</td>
                                     @else
-
+                                        <td>Rp.{{ number_format($detail['guide_price']) }} / Hari</td>
                                     @endif
-                                    <td id="button-{{ $detail['order_detail_id'] }}">
-                                        <button type="button" name="button" class="btn btn-success btn-sm" onclick="update({{$detail['order_detail_id']}}, '{{$data['order_type']}}')">Ubah</button>
-                                    </td>
+                                    @if($data['total_price'] == 0)
+                                        <td id="button-{{ $detail['order_detail_id'] }}">
+                                            <button type="button" name="button" class="btn btn-success btn-sm" onclick="update({{$detail['order_detail_id']}}, '{{$data['order_type']}}')">Ubah</button>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             <tr>
@@ -106,18 +134,22 @@
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
-                                <td>-</td>
                                 <td><strong style="color:red">Rp.{{ number_format($total) }}</strong></td>
+                                @if($data['total_price'] == 0)
+                                    <td>-</td>
+                                @endif
                             </tr>
                         </tbody>
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nama Barang</th>
+                                <th>Nama</th>
                                 <th>Lama Sewa</th>
                                 <th>Total Sewa</th>
-                                <th>Harga Sewa Barang</th>
-                                <th>Aksi</th>
+                                <th>Harga Sewa</th>
+                                @if($data['total_price'] == 0)
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                     </table>
@@ -126,7 +158,7 @@
             <hr>
             <div class="form-group-material row center">
                 <div class="col-sm-6 offset-sm-6">
-                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm">Kembali</button>
+                    <button type="button" onclick="window.location.replace('{{ url('/order-master') }}')" class="btn btn-primary btn-sm">Kembali</button>
                 </div>
             </div>
         </div>

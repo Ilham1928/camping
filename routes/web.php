@@ -143,6 +143,9 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->get('/detail/{id}', 'OrderController@detail');
                 $router->post('/save', 'OrderController@save');
                 $router->post('/order-detail/update', 'OrderController@update');
+                $router->get('/total-price', 'OrderController@getTotalPrice');
+                $router->post('/process', 'OrderController@process');
+                $router->post('/cancel', 'OrderController@cancel');
             });
         });
     });

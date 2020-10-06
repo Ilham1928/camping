@@ -32,6 +32,7 @@
                             <th>Code Pesanan</th>
                             <th>Total item</th>
                             <th>Tipe Pesanan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -43,12 +44,24 @@
                             <th>Code Pesanan</th>
                             <th>Total item</th>
                             <th>Tipe Pesanan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                 </table>
             </div>
             <div class="link"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
