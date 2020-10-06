@@ -53,10 +53,79 @@
                         <label class="col-sm-8">{{ $data['email'] }}</label>
                     </div>
                 </div>
+                <hr>
+                <strong>Detail Pesanan</strong>
+                <br>
+                <br>
+                <div class="table-responsive" id="tableData">
+                    <center>
+                        <p class="error-message"></p>
+                    </center>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Barang</th>
+                                <th>Lama Sewa</th>
+                                <th>Total Sewa</th>
+                                <th>Harga Sewa Barang</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $total = collect($data['order_detail'])->map(function($item){
+                                    $data['total_price'] = $item['item_price'] * $item['order_qty'] * $item['total_rental'];
+                                    return $data;
+                                })->sum('total_price');
+                            @endphp
+                            @foreach($data['order_detail'] as $value => $detail)
+                                <tr id="data-"{{ $detail['order_detail_id'] }}>
+                                    <td>{{ $value+1 }}</td>
+                                    @if($data['order_type'] == 'Barang')
+                                        <td>{{ $detail['item_name'] }}</td>
+                                        <td>
+                                            <span class="span-rental-{{ $detail['order_detail_id'] }}">{{ $detail['total_rental'] }} Hari</span>
+                                            <input type="number" class="input-material col-sm-8 input-rental-{{ $detail['order_detail_id'] }}" style="display:none">
+                                        </td>
+                                        <td>
+                                            <span class="span-qty-{{ $detail['order_detail_id'] }}">{{ $detail['order_qty'] }}</span>
+                                            <input type="number" class="input-material col-sm-8 input-qty-{{ $detail['order_detail_id'] }}" style="display:none">
+                                        </td>
+                                        <td>Rp.{{ number_format($detail['item_price']) }} / Hari</td>
+                                    @else
+
+                                    @endif
+                                    <td id="button-{{ $detail['order_detail_id'] }}">
+                                        <button type="button" name="button" class="btn btn-success btn-sm" onclick="update({{$detail['order_detail_id']}}, '{{$data['order_type']}}')">Ubah</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td><strong>Total Pembayaran</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><strong style="color:red">Rp.{{ number_format($total) }}</strong></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Barang</th>
+                                <th>Lama Sewa</th>
+                                <th>Total Sewa</th>
+                                <th>Harga Sewa Barang</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
             <hr>
             <div class="form-group-material row center">
-                <div class="col-sm-4 offset-sm-3">
+                <div class="col-sm-6 offset-sm-6">
                     <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm">Kembali</button>
                 </div>
             </div>
@@ -66,5 +135,5 @@
 @endsection
 
 @section('js')
-<script src="{{url('js/page/general/order/order.js')}}" charset="utf-8"></script>
+<script src="{{url('js/page/general/order/order-detail.js')}}" charset="utf-8"></script>
 @endsection

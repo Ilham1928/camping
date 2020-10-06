@@ -27,7 +27,11 @@ function getData(queryParam = false) {
                             +'<td>' + item.qty + ' ' + unit + '</td>'
                             +'<td>' + item.order_type + '</td>'
                             +'<td>'
+                                +'<button type="button" name="button" class="btn btn-success btn-sm" onclick="detail('+item.order_id+')">Proses</button>'
+                                +'&nbsp'
                                 +'<button type="button" name="button" class="btn btn-warning btn-sm" onclick="detail('+item.order_id+')">Detail</button>'
+                                +'&nbsp'
+                                +'<button type="button" name="button" class="btn btn-danger btn-sm" onclick="detail('+item.order_id+')">Hapus</button>'
                             +'</td>'
                         +'</tr>'
                     )

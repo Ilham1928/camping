@@ -34,9 +34,10 @@ class OrderSaveResponse implements Responsable
 
     protected function create($request)
     {
+        $type =  ($request->type == 'item') ? 'Barang' : 'Pemandu';
         $order = Order::where('user_id', Session::get('user_id'))
             ->where('order_date', '>', date('Y-m-d'))
-            ->where('order_type', $request->type)
+            ->where('order_type', $type)
             ->first();
 
         if (!$order) {
