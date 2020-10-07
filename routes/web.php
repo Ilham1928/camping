@@ -147,6 +147,10 @@ $router->group(['namespace' => 'Main'], function () use ($router) {
                 $router->post('/process', 'OrderController@process');
                 $router->post('/cancel', 'OrderController@cancel');
             });
+
+            $router->get('/order-history', 'OrderController@orderHistory');
+            $router->get('/order-future', 'OrderController@orderFuture');
+            $router->get('/order-future/checkout', 'OrderController@checkout');
         });
     });
 });

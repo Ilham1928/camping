@@ -3,8 +3,6 @@ var url = $('meta[name="__global_url"]').attr('content')+'/order-master'
 function getData(queryParam = false) {
     var query   = (queryParam) ? queryParam : '?page=1'
 
-
-
     $.ajax({
         type: 'GET',
         dataType: 'json',

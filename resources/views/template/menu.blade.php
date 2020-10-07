@@ -44,7 +44,7 @@
                 </a>
                 <ul id="dropdown" class="collapse list-unstyled ">
                     <li class=""><a href="{{ url('order-future') }}">Pesanan Akan Datang</a></li>
-                    <li class=""><a href="{{ url('order-past') }}">Pesanan Berlalu</a></li>
+                    <li class=""><a href="{{ url('order-history') }}">Pesanan Berlalu</a></li>
                 </ul>
             </li>
         @endif

@@ -16,6 +16,11 @@ use App\Http\Responses\Web\Order\Master\OrderCancelResponse;
 use App\Http\Responses\Web\Order\Master\GetTotalPriceResponse;
 use App\Http\Responses\Web\Order\Master\OrderDetailUpdateResponse;
 
+// user
+use App\Http\Responses\Web\Order\Master\OrderFutureResponse;
+use App\Http\Responses\Web\Order\Master\OrderHistoryResponse;
+use App\Http\Responses\Web\Order\Master\OrderCheckoutResponse;
+
 class OrderController extends Controller
 {
     public function getData(Request $request)
@@ -153,5 +158,31 @@ class OrderController extends Controller
         }
 
         return new OrderCancelResponse;
+    }
+
+    public function orderFuture(Request $request)
+    {
+        return new OrderFutureResponse;
+    }
+
+    public function checkout(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:order,order_id',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'code' => 422,
+                'message' => $validator->errors()->first(),
+            ], 200);
+        }
+
+        return new OrderCheckoutResponse;
+    }
+
+    public function orderHistory(Request $request)
+    {
+        return new OrderHistoryResponse;
     }
 }

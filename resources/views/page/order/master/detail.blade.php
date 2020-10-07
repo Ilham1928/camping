@@ -36,7 +36,19 @@
                 <div class="row">
                     <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Status Pesanan :</label>
-                        <label class="col-sm-8">{{ $isCancel = ($data['total_price'] == 0) ? 'Diproses' : 'Dibatalkan' }}</label>
+                        @if($data['is_checkout'] == 1)
+                            @if($data['total_price'] == 0)
+                                <label class="col-sm-8">{{ 'Menunggu Diproses' }}</label>
+                            @else
+                                <label class="col-sm-8">{{ 'Diproses' }}</label>
+                            @endif
+                        @else
+                            @if($data['is_cancel'] == 1)
+                                <label class="col-sm-8">{{ 'Dibatalkan' }}</label>
+                            @else
+                                <label class="col-sm-8">{{ 'Belum Checkout' }}</label>
+                            @endif
+                        @endif
                     </div>
                 </div>
                 @if($data['total_price'] != 0)
@@ -96,10 +108,15 @@
                         </thead>
                         <tbody>
                             @php
-                                $total = collect($data['order_detail'])->map(function($item){
-                                    $data['total_price'] = $item['item_price'] * $item['order_qty'] * $item['total_rental'];
+                                $total = collect($data['order_detail'])->map(function($item) use($data){
+                                    if($data['order_type'] == 'Barang') {
+                                        $data['price'] = $item['item_price'] * $item['order_qty'] * $item['total_rental'];
+                                    }else{
+                                        $data['price'] = $item['guide_price'] * $item['order_qty'] * $item['total_rental'];
+                                    }
                                     return $data;
-                                })->sum('total_price');
+                                })->sum('price');
+
                             @endphp
                             @foreach($data['order_detail'] as $value => $detail)
                                 <tr id="data-"{{ $detail['order_detail_id'] }}>
@@ -158,7 +175,11 @@
             <hr>
             <div class="form-group-material row center">
                 <div class="col-sm-6 offset-sm-6">
-                    <button type="button" onclick="window.location.replace('{{ url('/order-master') }}')" class="btn btn-primary btn-sm">Kembali</button>
+                    @if(!empty(Session::get('user_id')))
+                        <button type="button" onclick="window.location.replace('{{ url('/order-future') }}')" class="btn btn-primary btn-sm">Kembali</button>
+                    @else
+                        <button type="button" onclick="window.location.replace('{{ url('/order-master') }}')" class="btn btn-primary btn-sm">Kembali</button>
+                    @endif
                 </div>
             </div>
         </div>

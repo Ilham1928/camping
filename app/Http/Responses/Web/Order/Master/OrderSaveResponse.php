@@ -46,7 +46,7 @@ class OrderSaveResponse implements Responsable
                 'order_code' => 'Spader - ' . date('Ymd') . rand(),
                 'order_date' => $request->date,
                 'order_type' => ($request->type == 'item') ? 'Barang' : 'Pemandu',
-                'is_checkout' => 0
+                'is_checkout' => 0,
                 'status' => '1'
             ]);
         }
