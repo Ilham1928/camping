@@ -47,17 +47,17 @@
                                     <td>{{ $order['qty'] }}</td>
                                     <td>{{ $order['order_type'] }}</td>
                                     <td>
-                                        @if($order['is_checkout'] == 1)
-                                            @if($order['total_price'] == 0)
-                                                <label class="col-sm-8">{{ 'Menunggu Diproses' }}</label>
-                                            @else
-                                                <label class="col-sm-8">{{ 'Diproses' }}</label>
-                                            @endif
+                                        @if ($order['is_cancel'] == 1)
+                                            <label style="color:red" class="col-sm-8">Dibatalkan</label>
                                         @else
-                                            @if($order['is_cancel'] == 1)
-                                                <label class="col-sm-8">{{ 'Dibatalkan' }}</label>
+                                            @if ($order['is_checkout'] == 1)
+                                                @if($order['total_price'] == 0)
+                                                    <label style="color:#796aee" class="col-sm-8">Menunggu Diproses</label>
+                                                @else
+                                                    <label style="color:green" class="col-sm-8">Diproses</label>
+                                                @endif
                                             @else
-                                                <label class="col-sm-8">{{ 'Belum Checkout' }}</label>
+                                                <label class="col-sm-8">Belum Checkout</label>
                                             @endif
                                         @endif
                                     </td>

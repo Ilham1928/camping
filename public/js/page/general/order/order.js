@@ -18,7 +18,21 @@ function getData(queryParam = false) {
                 $('#tableData tbody').html("")
                 $(res.data.data).each(function (index, item) {
 
-                    var cancel = (item.is_cancel == 1) ? '<span style="color:red">Pesanan Dibatalkan</span>' : '<span style="color:green">Pesanan Diproses</span<'
+                    var label = ''
+                    if (item.is_cancel === 1) {
+                        label = '<label style="color:red" class="col-sm-8">Dibatalkan</label>'
+                    }else{
+                        if (item.is_checkout === 1) {
+                            if(item.total_price === 0){
+                                label = '<label style="color:#796aee" class="col-sm-8">Menunggu Diproses</label>'
+                            }else{
+                                label = '<label style="color:green" class="col-sm-8">Diproses</label>'
+                            }
+                        }else{
+                            label = '<label class="col-sm-8">Belum Checkout</label>'
+                        }
+                    }
+
                     var unit = (item.order_type === 'Pemandu') ? 'Orang' : 'Item'
                     var disabled = parseInt(item.total_price) > 0 ? 'disabled' : ''
                     var disableCacncel = parseInt(item.is_cancel) === 1 ? 'disabled' : ''
@@ -30,7 +44,7 @@ function getData(queryParam = false) {
                             +'<td>' + item.order_code + '</td>'
                             +'<td>' + item.qty + ' ' + unit + '</td>'
                             +'<td>' + item.order_type + '</td>'
-                            +'<td>' + cancel + '</td>'
+                            +'<td>' + label + '</td>'
                             +'<td>'
                                 +'<button type="button" '+ disableCacncel + disabled +' name="button" class="btn btn-success btn-sm" onclick="getTotalPrice('+item.order_id+')">Proses</button>'
                                 +'&nbsp'

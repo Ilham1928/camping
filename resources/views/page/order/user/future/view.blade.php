@@ -32,6 +32,7 @@
                             <th>Code Pesanan</th>
                             <th>Total item</th>
                             <th>Tipe Pesanan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,6 +46,21 @@
                                     <td>{{ $order['order_code'] }}</td>
                                     <td>{{ $order['qty'] }}</td>
                                     <td>{{ $order['order_type'] }}</td>
+                                    <td>
+                                        @if ($order['is_cancel'] == 1)
+                                            <label style="color:red" class="col-sm-8">Dibatalkan</label>
+                                        @else
+                                            @if ($order['is_checkout'] == 1)
+                                                @if($order['total_price'] == 0)
+                                                    <label style="color:#796aee" class="col-sm-8">Menunggu Diproses</label>
+                                                @else
+                                                    <label style="color:green" class="col-sm-8">Diproses</label>
+                                                @endif
+                                            @else
+                                                <label class="col-sm-8">Belum Checkout</label>
+                                            @endif
+                                        @endif
+                                    </td>
                                     <td>
                                         <button type="button" onclick="detail({{$order['order_id']}})" class="btn btn-warning btn-sm">Detail</button>
                                         <button type="button" {{ $disabled }} id="btn-{{ $order['order_id'] }}"  onclick="checkout({{$order['order_id']}})" class="btn btn-success btn-sm">Checkout</button>
@@ -64,6 +80,7 @@
                             <th>Code Pesanan</th>
                             <th>Total item</th>
                             <th>Tipe Pesanan</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

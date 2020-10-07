@@ -36,17 +36,17 @@
                 <div class="row">
                     <div class="form-group-material col-sm-12">
                         <label class="col-sm-2 form-control-label">Status Pesanan :</label>
-                        @if($data['is_checkout'] == 1)
-                            @if($data['total_price'] == 0)
-                                <label class="col-sm-8">{{ 'Menunggu Diproses' }}</label>
-                            @else
-                                <label class="col-sm-8">{{ 'Diproses' }}</label>
-                            @endif
+                        @if ($data['is_cancel'] == 1)
+                            <label style="color:red" class="col-sm-8">Dibatalkan</label>
                         @else
-                            @if($data['is_cancel'] == 1)
-                                <label class="col-sm-8">{{ 'Dibatalkan' }}</label>
+                            @if ($data['is_checkout'] == 1)
+                                @if($data['total_price'] == 0)
+                                    <label style="color:#796aee" class="col-sm-8">Menunggu Diproses</label>
+                                @else
+                                    <label style="color:green" class="col-sm-8">Diproses</label>
+                                @endif
                             @else
-                                <label class="col-sm-8">{{ 'Belum Checkout' }}</label>
+                                <label class="col-sm-8">Belum Checkout</label>
                             @endif
                         @endif
                     </div>
