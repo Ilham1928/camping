@@ -51,7 +51,6 @@ class OrderController extends Controller
             ->addSelect('order.order_code')
             ->where('order.order_id', $id)
             ->leftJoin('user', 'user.user_id', '=', 'order.user_id')
-            ->whereRaw("MONTH(`order_date`) = MONTH(CURDATE())")
             ->where('order.status', '1')
             ->get()
             ->map(function($item){

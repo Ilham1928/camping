@@ -175,7 +175,7 @@
             <hr>
             <div class="form-group-material row center">
                 <div class="col-sm-6 offset-sm-6">
-                    @if(!empty(Session::get('user_id')))
+                    @if(Session::get('type') == 'user')
                         <button type="button" onclick="window.location.replace('{{ url('/order-future') }}')" class="btn btn-primary btn-sm">Kembali</button>
                     @else
                         <button type="button" onclick="window.location.replace('{{ url('/order-master') }}')" class="btn btn-primary btn-sm">Kembali</button>
