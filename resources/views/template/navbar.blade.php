@@ -13,7 +13,6 @@
                 <div class="navbar-header">
                     <a href="{{url('dashboard')}}" class="navbar-brand d-none d-sm-inline-block">
                         <div class="brand-text d-none d-lg-inline-block">
-                            <span>Admin </span>
                             <strong>{{Session::get('brand')}}</strong>
                         </div>
                         <div class="brand-text d-none d-sm-inline-block d-lg-none">

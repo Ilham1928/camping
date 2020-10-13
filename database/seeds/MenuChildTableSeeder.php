@@ -41,11 +41,6 @@ class MenuChildTableSeeder extends Seeder
                 'menu_child_name' => 'Master Pesanan',
                 'menu_child_url' => 'order-master',
                 'menu_parent_id' => 4
-            ],
-            [
-                'menu_child_name' => 'Kelola Keuangan',
-                'menu_child_url' => 'price-master',
-                'menu_parent_id' => 5
             ]
         ];
 

@@ -27,10 +27,6 @@ class MenuParentTableSeeder extends Seeder
             [
                 'menu_parent_name' => 'Kelola Pesanan',
                 'menu_icon_id' => 100
-            ],
-            [
-                'menu_parent_name' => 'Kelola Keuangan',
-                'menu_icon_id' => 74
             ]
         ]);
     }
